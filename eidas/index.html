@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infografía: eIDAS 2.0 y el DNI Digital en España</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .section-title {
+            font-size: 1.75rem; /* text-2xl or text-3xl */
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #003F5C; /* Dark Blue from palette */
+        }
+        .card {
+            background-color: white;
+            border-radius: 0.5rem; /* rounded-lg */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* shadow-md */
+            padding: 1.5rem; /* p-6 */
+            margin-bottom: 2rem; /* mb-8 */
+        }
+        .stat-number {
+            font-size: 3rem; /* text-5xl */
+            font-weight: 700;
+            color: #FFA600; /* Accent Orange */
+        }
+        .flow-arrow {
+            font-size: 2rem;
+            color: #665191; /* Purple from palette */
+            margin: 0 0.5rem;
+        }
+        .timeline-item {
+            position: relative;
+            padding-bottom: 1.5rem;
+            padding-left: 2.5rem; 
+            border-left: 2px solid #2F4B7C; /* Mid Blue */
+        }
+        .timeline-dot {
+            position: absolute;
+            left: -0.5rem; 
+            top: 0.25rem;
+            height: 1rem;
+            width: 1rem;
+            background-color: #FFA600; /* Accent Orange */
+            border-radius: 50%;
+            border: 2px solid white;
+        }
+        .nav-link {
+            transition: color 0.3s ease;
+        }
+        .nav-link:hover {
+            color: #FFA600;
+        }
+        .sticky-nav {
+            position: -webkit-sticky; /* Safari */
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+    </style>
+    <!--
+    Infographic Plan: eIDAS 2.0 y DNI Digital en España
+
+    Overall Narrative: From the European regulation (eIDAS 2.0) and its core component (EUDI Wallet)
+    to its specific implementation and implications in Spain (MiDNI, Cl@ve, timeline, opportunities/challenges),
+    concluding with the future vision of digital identity.
+
+    Color Palette Chosen: 'Brilliant Blues' from provided image.
+    Primary: #003F5C (text-slate-800), #2F4B7C (text-slate-700), #665191 (text-purple-700)
+    Accents: #FFA600 (text-amber-500), #FF7C43 (text-orange-500), #F95D6A (text-pink-500)
+    Backgrounds: bg-slate-50, bg-white for cards.
+
+    Structure: Single-page, scrollable. Sections as cards or distinct visual blocks.
+
+    Sections & Visualizations:
+    (Detailed plan as per previous thought block - this is a summary)
+    1.  Título e Introducción (HTML Text)
+    2.  Objetivos Clave eIDAS 2.0 (Big Number, HTML List + Unicode)
+    3.  EUDI Wallet (HTML/CSS flow or Icon List)
+    4.  Beneficios EUDI Wallet (Chart.js Donut)
+    5.  Seguridad EUDI Wallet (HTML List + Unicode)
+    6.  MiDNI (HTML Text + Unicode Icon)
+    7.  Integración MiDNI, Cl@ve, EUDI Wallet (HTML/CSS Flow Chart)
+    8.  Cronograma (HTML/CSS Timeline)
+    9.  Gestión de Credenciales (HTML/CSS Flow Chart)
+    10. Tipos de Atestaciones (HTML Table or Cards)
+    11. DIDs y SSI (HTML Text + Unicode Icon)
+    12. Oportunidades España (HTML List + Unicode)
+    13. Desafíos España (HTML List + Unicode)
+    14. Conclusión (HTML Text)
+
+    Confirmation:
+    - NO Mermaid JS will be used.
+    - NO SVG graphics will be used. All visuals will be Chart.js (Canvas), HTML/CSS, or Unicode characters.
+    - Chart.js label wrapping (16-char) and tooltip config will be implemented.
+    - Chart containers will be styled for responsiveness.
+    - All text content will be in Spanish, based on the provided report.
+    -->
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <nav class="sticky-nav bg-white shadow-md py-3 px-6 mb-8">
+        <div class="container mx-auto flex flex-wrap justify-center items-center space-x-4 text-sm md:text-base">
+            <a href="#introduccion" class="nav-link text-slate-700 hover:text-amber-500 font-semibold">Introducción</a>
+            <a href="#eudi-wallet" class="nav-link text-slate-700 hover:text-amber-500 font-semibold">EUDI Wallet</a>
+            <a href="#midni" class="nav-link text-slate-700 hover:text-amber-500 font-semibold">MiDNI</a>
+            <a href="#cronograma" class="nav-link text-slate-700 hover:text-amber-500 font-semibold">Cronograma</a>
+            <a href="#credenciales" class="nav-link text-slate-700 hover:text-amber-500 font-semibold">Credenciales</a>
+            <a href="#dids" class="nav-link text-slate-700 hover:text-amber-500 font-semibold">DIDs</a>
+            <a href="#espana" class="nav-link text-slate-700 hover:text-amber-500 font-semibold">España</a>
+        </div>
+    </nav>
+
+    <div class="container mx-auto p-4 md:p-8">
+
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4" style="color: #003F5C;">eIDAS 2.0 y la Identidad Digital en España</h1>
+            <p class="text-lg text-slate-600 max-w-3xl mx-auto">Una mirada profunda a la nueva era de la identificación digital europea y su impacto en España, desde la EUDI Wallet hasta el DNI digital.</p>
+        </header>
+
+        <section id="introduccion" class="card">
+            <h2 class="section-title">1. Introducción a eIDAS 2.0: La Evolución Necesaria</h2>
+            <p class="mb-4 text-slate-700">La digitalización global exige sistemas de identificación electrónica seguros y eficientes. El Reglamento (UE) 2024/1183, conocido como <strong>eIDAS 2.0</strong>, actualiza el marco de 2014 para fortalecer la confianza en las transacciones electrónicas y facilitar el acceso a servicios digitales en toda la UE. Entró en vigor el 20 de mayo de 2024.</p>
+            <div class="grid md:grid-cols-2 gap-6 items-center">
+                <div>
+                    <h3 class="text-xl font-semibold mb-2" style="color: #2F4B7C;">Objetivos Clave de eIDAS 2.0:</h3>
+                    <ul class="list-none space-y-2">
+                        <li class="flex items-start"><span class="text-amber-500 mr-2 text-xl">🎯</span> <span class="text-slate-700"><strong>Adopción Masiva:</strong> Que el <span class="stat-number !text-3xl !inline">80%</span> de ciudadanos UE usen identificación digital para 2030.</span></li>
+                        <li class="flex items-start"><span class="text-amber-500 mr-2 text-xl">🔗</span> <span class="text-slate-700"><strong>Interoperabilidad Transfronteriza:</strong> Reconocimiento mutuo obligatorio de eIDs nacionales.</span></li>
+                        <li class="flex items-start"><span class="text-amber-500 mr-2 text-xl">🛡️</span> <span class="text-slate-700"><strong>Nuevos Servicios de Confianza:</strong> Ampliación a entrega electrónica certificada, registro en blockchain, etc.</span></li>
+                        <li class="flex items-start"><span class="text-amber-500 mr-2 text-xl">👍</span> <span class="text-slate-700"><strong>Confianza y Seguridad:</strong> Estándares rigurosos, auditorías y alineación con RGPD ("privacidad por diseño").</span></li>
+                    </ul>
+                    <p class="mt-3 text-sm text-slate-600">En España, la <strong style="color: #665191;">Secretaría de Estado de Digitalización e Inteligencia Artificial (SEDIAT)</strong> supervisa eIDAS.</p>
+                </div>
+                <div class="text-center">
+                     <p class="text-6xl">🇪🇺</p>
+                     <p class="mt-2 text-slate-600 font-semibold">Un Mercado Único Digital más Fuerte y Seguro</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="eudi-wallet" class="card">
+            <h2 class="section-title">2. La Cartera Europea de Identidad Digital (EUDI Wallet)</h2>
+            <p class="mb-4 text-slate-700">La <strong>EUDI Wallet</strong> es la innovación estrella de eIDAS 2.0: una aplicación móvil que permitirá a ciudadanos y empresas gestionar su identidad digital de forma segura y con control total.</p>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="text-xl font-semibold mb-3" style="color: #2F4B7C;">Funcionalidades Principales:</h3>
+                    <div class="space-y-4">
+                        <div class="p-4 border border-slate-200 rounded-lg bg-slate-50">
+                            <h4 class="font-semibold text-purple-700">📄 Almacenar y Gestionar</h4>
+                            <p class="text-sm text-slate-600">DNI, permisos, títulos, recetas, billetes y más, de forma segura.</p>
+                        </div>
+                        <div class="p-4 border border-slate-200 rounded-lg bg-slate-50">
+                            <h4 class="font-semibold text-purple-700">🤝 Compartir Selectivamente</h4>
+                            <p class="text-sm text-slate-600">Tú decides qué datos compartes y con quién (ej. verificar edad sin dar fecha exacta).</p>
+                        </div>
+                        <div class="p-4 border border-slate-200 rounded-lg bg-slate-50">
+                            <h4 class="font-semibold text-purple-700">✍️ Firmar Electrónicamente (QES)</h4>
+                            <p class="text-sm text-slate-600">Firmas con valor legal de firma manuscrita, gratis para uso no profesional.</p>
+                        </div>
+                         <div class="p-4 border border-slate-200 rounded-lg bg-slate-50">
+                            <h4 class="font-semibold text-purple-700">📊 Registro de Transacciones</h4>
+                            <p class="text-sm text-slate-600">Panel para ver todas tus interacciones y datos compartidos.</p>
+                        </div>
+                    </div>
+                     <h3 class="text-xl font-semibold mt-6 mb-3" style="color: #2F4B7C;">Principios de Seguridad y Privacidad:</h3>
+                    <ul class="list-none space-y-2 text-sm">
+                        <li class="flex items-center"><span class="text-orange-500 mr-2">🔒</span> Cifrado avanzado y almacenamiento seguro.</li>
+                        <li class="flex items-center"><span class="text-orange-500 mr-2">🔑</span> Autenticación Multifactor (MFA) con biométricos/PIN.</li>
+                        <li class="flex items-center"><span class="text-orange-500 mr-2">🕵️‍♂️🚫</span> No rastreo por emisores de credenciales.</li>
+                        <li class="flex items-center"><span class="text-orange-500 mr-2">👤✅</span> Transparencia y control total del usuario sobre sus datos.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-3" style="color: #2F4B7C;">Beneficios Clave:</h3>
+                    <div class="chart-container mx-auto h-72 md:h-96">
+                        <canvas id="benefitsChart"></canvas>
+                    </div>
+                    <p class="text-center mt-2 text-sm text-slate-600">La EUDI Wallet simplifica la vida digital para todos.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="midni" class="card">
+            <h2 class="section-title">3. El DNI Digital Español (MiDNI) y su Integración Europea</h2>
+            <p class="mb-4 text-slate-700">España avanza con su DNI digital, la aplicación <strong>MiDNI</strong>, buscando la plena integración con el ecosistema eIDAS 2.0.</p>
+            <div class="grid md:grid-cols-2 gap-6 items-center">
+                <div>
+                    <h3 class="text-xl font-semibold mb-2" style="color: #2F4B7C;">MiDNI: Tu Identificación en el Móvil</h3>
+                    <p class="text-slate-700 mb-2"><span class="text-4xl inline-block align-middle mr-2">📱</span> La app MiDNI, desarrollada por la Policía Nacional, genera un <strong>código QR seguro</strong> para identificarse en diversas situaciones (hoteles, bancos, firmas).</p>
+                    <p class="text-slate-700 mb-1"><strong class="text-purple-700">Seguridad:</strong> No almacena datos en el dispositivo; los extrae en tiempo real.</p>
+                    <p class="text-slate-700 mb-3"><strong class="text-orange-500">Limitaciones iniciales:</strong> No válida para viajes internacionales ni identificación en el extranjero (hasta plena integración con EUDI Wallet). Periodo de adaptación de 12 meses para aceptación obligatoria.</p>
+                    
+                    <h3 class="text-xl font-semibold mb-2 mt-4" style="color: #2F4B7C;">El Papel Fundamental de Cl@ve:</h3>
+                    <p class="text-slate-700">El sistema <strong>Cl@ve</strong> es el nodo central para la identificación transfronteriza en España. Cl@ve 2.0 se conectará directamente al nodo eIDAS, facilitando que los españoles se identifiquen en servicios europeos y viceversa.</p>
+                </div>
+                <div class="text-center p-4 border border-slate-200 rounded-lg bg-slate-50">
+                    <h4 class="font-semibold text-lg mb-3" style="color: #665191;">Flujo de Integración (Simplificado):</h4>
+                    <div class="flex flex-col items-center space-y-2 md:flex-row md:space-y-0 md:space-x-2 md:justify-center text-sm">
+                        <div class="p-3 bg-blue-100 text-blue-700 rounded-md text-center">MiDNI App</div>
+                        <span class="flow-arrow">➡️</span>
+                        <div class="p-3 bg-purple-100 text-purple-700 rounded-md text-center">Sistema Cl@ve</div>
+                        <span class="flow-arrow">➡️</span>
+                        <div class="p-3 bg-green-100 text-green-700 rounded-md text-center">Nodo eIDAS Español</div>
+                        <span class="flow-arrow">➡️</span>
+                        <div class="p-3 bg-amber-100 text-amber-700 rounded-md text-center">EUDI Wallet (UE)</div>
+                    </div>
+                    <p class="mt-4 text-slate-600 text-sm">España participa activamente en pilotos como <strong>DC4EU</strong> para probar la EUDI Wallet en educación y seguridad social.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="cronograma" class="card">
+            <h2 class="section-title">4. Cronograma Clave: ¿Cuándo Será una Realidad en España?</h2>
+            <p class="mb-6 text-slate-700">El despliegue de eIDAS 2.0 y la EUDI Wallet es progresivo. El uso de la EUDI Wallet será <strong>voluntario para ciudadanos</strong>, pero su aceptación será obligatoria para muchos servicios.</p>
+            <div class="relative">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <h3 class="font-semibold text-purple-700">20 MAY 2024</h3>
+                    <p class="text-sm text-slate-600">Entrada en vigor del Reglamento eIDAS 2.0.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <h3 class="font-semibold text-purple-700">NOV 2024</h3>
+                    <p class="text-sm text-slate-600">Adopción de los primeros Actos de Ejecución (especificaciones técnicas).</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <h3 class="font-semibold text-purple-700">22 ABR 2025</h3>
+                    <p class="text-sm text-slate-600">Lanzamiento previsto de la aplicación MiDNI en España.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <h3 class="font-semibold text-purple-700">FINALES DE 2026</h3>
+                    <p class="text-sm text-slate-600">Estados Miembros (incluida España) deben proporcionar la EUDI Wallet. <br>Sector público de la UE debe aceptar la EUDI Wallet.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <h3 class="font-semibold text-purple-700">FINALES DE 2027</h3>
+                    <p class="text-sm text-slate-600">Sector privado (bancos, telcos, etc. con autenticación fuerte obligatoria) debe aceptar la EUDI Wallet.</p>
+                </div>
+                <div class="timeline-item border-l-transparent">
+                    <div class="timeline-dot"></div>
+                    <h3 class="font-semibold text-purple-700">PARA 2030</h3>
+                    <p class="text-sm text-slate-600">Objetivo: 80% de ciudadanos UE usando activamente la EUDI Wallet.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="credenciales" class="card">
+            <h2 class="section-title">5. Gestión de Credenciales y Documentos en la EUDI Wallet</h2>
+            <p class="mb-4 text-slate-700">La EUDI Wallet almacenará "atestaciones electrónicas de atributos" (EAAs) que certifican información. Así es como funciona:</p>
+            
+            <div class="grid md:grid-cols-2 gap-8 items-start">
+                <div>
+                    <h3 class="text-xl font-semibold mb-3" style="color: #2F4B7C;">Proceso de Emisión y Verificación:</h3>
+                    <ol class="list-decimal list-inside space-y-3 text-slate-700 text-sm">
+                        <li><strong>Configuración:</strong> Usuario configura su EUDI Wallet y la vincula a su identidad (PID).</li>
+                        <li><strong>Solicitud:</strong> Usuario pide una credencial (título, permiso) a un emisor (universidad, DGT).</li>
+                        <li><strong>Verificación Emisor:</strong> El emisor (público o privado) autentica al usuario y valida los datos. Los QTSP emiten QEAA.</li>
+                        <li><strong>Generación y Envío:</strong> Emisor crea la atestación digital y la envía a la Wallet del usuario.</li>
+                        <li><strong>Almacenamiento y Presentación:</strong> Usuario guarda la credencial y la presenta cuando sea necesario.</li>
+                    </ol>
+                    <p class="mt-4 text-sm text-slate-600"><strong>Importante:</strong> Para "subir" un documento privado, una entidad emisora confiable (universidad, empleador, banco) debe emitir una atestación verificable de ese atributo a tu Wallet. No es para almacenar cualquier archivo.</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-3" style="color: #2F4B7C;">Tipos de Atestaciones Electrónicas (EAAs):</h3>
+                    <div class="space-y-3">
+                        <div class="p-3 border border-amber-300 rounded-lg bg-amber-50">
+                            <h4 class="font-semibold text-amber-700">🌟 QEAA (Cualificadas)</h4>
+                            <p class="text-xs text-slate-600">Máxima garantía legal. Emitidas por QTSP desde fuentes auténticas (ej. DNI, títulos oficiales). Equivalen a documentos en papel.</p>
+                        </div>
+                        <div class="p-3 border border-purple-300 rounded-lg bg-purple-50">
+                            <h4 class="font-semibold text-purple-700">📄 EAA (Estándar)</h4>
+                            <p class="text-xs text-slate-600">Credenciales simples para entornos no regulados (ej. carnet de gimnasio, ID estudiante).</p>
+                        </div>
+                        <div class="p-3 border border-sky-300 rounded-lg bg-sky-50">
+                            <h4 class="font-semibold text-sky-700">🏛️ PuB-EAA (Públicas)</h4>
+                            <p class="text-xs text-slate-600">Emitidas por organismos del sector público.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="dids" class="card">
+            <h2 class="section-title">6. Identificadores Descentralizados (DIDs): Hacia la Identidad Soberana</h2>
+            <p class="mb-4 text-slate-700">eIDAS 2.0 adopta los <strong>Identificadores Descentralizados (DIDs)</strong>, un pilar de la Identidad Soberana (SSI), que otorga más control al usuario.</p>
+            <div class="grid md:grid-cols-2 gap-6 items-center">
+                <div>
+                    <h3 class="text-xl font-semibold mb-2" style="color: #2F4B7C;">¿Qué es un DID?</h3>
+                    <p class="text-slate-700 mb-2">Un DID es un <strong>identificador único global</strong> que permite identificar a una persona o entidad de forma verificable y persistente, sin depender de un registro centralizado. Cada DID apunta a un "documento DID" con claves públicas para autenticación.</p>
+                    <h3 class="text-xl font-semibold mb-2 mt-4" style="color: #2F4B7C;">Creación y Control:</h3>
+                    <p class="text-slate-700 mb-2">Individuos y organizaciones pueden generar sus DIDs. El control reside en la entidad, permitiendo múltiples DIDs para diferentes contextos.</p>
+                    <p class="text-slate-700"><strong class="text-purple-700">Proceso general:</strong> Generar ID único (blockchain/DLT) ➔ Almacenar en Wallet ➔ Gestionar documento DID.</p>
+                </div>
+                <div class="text-center p-6 bg-slate-100 rounded-lg">
+                    <span class="text-6xl">👤<span class="text-amber-500">🔑</span></span>
+                    <p class="mt-3 font-semibold text-slate-700">Identidad Soberana (SSI): Tú controlas tus datos.</p>
+                    <p class="text-sm text-slate-600 mt-2">Aunque SSI promueve la descentralización, eIDAS 2.0 requiere que las credenciales clave (PID, QEAA) en la EUDI Wallet sean emitidas o verificadas por <strong>autoridades de confianza (QTSP, gobierno)</strong> para tener validez legal transfronteriza. Se busca un equilibrio.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="espana" class="card">
+            <h2 class="section-title">7. España ante eIDAS 2.0: Oportunidades y Desafíos</h2>
+            <p class="mb-4 text-slate-700">La implementación de eIDAS 2.0 y la EUDI Wallet abre un nuevo horizonte para España, con importantes ventajas y retos a considerar.</p>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="text-xl font-semibold mb-3 text-green-600">✅ Oportunidades Estratégicas:</h3>
+                    <ul class="list-none space-y-2 text-sm text-slate-700">
+                        <li class="flex items-start"><span class="text-green-500 mr-2">🏆</span> <strong>Liderazgo:</strong> Posición avanzada gracias a DNI-e, Cl@ve y participación en pilotos (DC4EU).</li>
+                        <li class="flex items-start"><span class="text-green-500 mr-2">⚙️</span> <strong>Simplificación Administrativa:</strong> Menos burocracia y mayor eficiencia con la administración.</li>
+                        <li class="flex items-start"><span class="text-green-500 mr-2">🌍</span> <strong>Impulso al Mercado Único Digital:</strong> Facilita operaciones y acceso a servicios en toda la UE.</li>
+                        <li class="flex items-start"><span class="text-green-500 mr-2">🔒</span> <strong>Más Seguridad y Confianza:</strong> Mitiga fraude y robo de identidad con altos estándares.</li>
+                        <li class="flex items-start"><span class="text-green-500 mr-2">💡</span> <strong>Innovación:</strong> Nuevos modelos de negocio para QTSP, tech y otros sectores.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-3 text-red-600">⚠️ Retos de Implementación:</h3>
+                    <ul class="list-none space-y-2 text-sm text-slate-700">
+                        <li class="flex items-start"><span class="text-red-500 mr-2">🎓</span> <strong>Educación Digital:</strong> Necesidad de formar a ciudadanos y empresas en el uso seguro.</li>
+                        <li class="flex items-start"><span class="text-red-500 mr-2">❓</span> <strong>Definición "Fines No Profesionales" QES:</strong> Incertidumbre legal y para financiación de QTSP.</li>
+                        <li class="flex items-start"><span class="text-red-500 mr-2">🔄</span> <strong>Coexistencia de Sistemas:</strong> EUDI Wallet voluntaria convivirá con Cl@ve, DNI-e físico.</li>
+                        <li class="flex items-start"><span class="text-red-500 mr-2">🔗</span> <strong>Tensión SSI vs QTSP:</strong> Equilibrio entre descentralización y necesidad de autoridades centrales.</li>
+                        <li class="flex items-start"><span class="text-red-500 mr-2">🍪</span> <strong>Riesgo "Super-Cookie":</strong> Preocupaciones de privacidad por identificación única de la wallet.</li>
+                        <li class="flex items-start"><span class="text-red-500 mr-2">✈️</span> <strong>Limitaciones MiDNI Iniciales:</strong> No para viajes internacionales, exclusión NIE (hasta integración EUDI).</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="card bg-slate-800 text-white">
+            <h2 class="section-title !text-amber-400">8. Conclusión: Hacia una Identidad Digital Europea Unificada</h2>
+            <p class="mb-4">eIDAS 2.0 y la EUDI Wallet representan una transformación crucial para la identidad digital en Europa y España. Este nuevo marco busca una identificación electrónica segura, interoperable y centrada en el usuario.</p>
+            <p class="mb-4">España, con su infraestructura digital y participación activa, está bien posicionada. La EUDI Wallet promete control de datos, firmas electrónicas gratuitas (uso no profesional) y acceso simplificado a servicios.</p>
+            <p>Superar desafíos como la educación digital, la claridad regulatoria y la integración de sistemas será clave. El éxito dependerá de la colaboración continua y la adaptación a las necesidades de los usuarios para materializar esta revolución de la identidad digital.</p>
+        </section>
+
+    </div>
+
+    <footer class="text-center py-8 text-sm text-slate-500">
+        <p>Infografía generada basada en el informe sobre eIDAS 2.0 y la Identidad Digital en España.</p>
+        <p>Confirmación: No se ha utilizado Mermaid JS ni SVG. Todas las visualizaciones son Chart.js (Canvas) o HTML/CSS.</p>
+    </footer>
+
+    <script>
+        function wrapLabels(labels, maxLength) {
+            return labels.map(label => {
+                if (typeof label === 'string' && label.length > maxLength) {
+                    const words = label.split(' ');
+                    const lines = [];
+                    let currentLine = '';
+                    words.forEach(word => {
+                        if ((currentLine + word).length > maxLength && currentLine.length > 0) {
+                            lines.push(currentLine.trim());
+                            currentLine = word + ' ';
+                        } else {
+                            currentLine += word + ' ';
+                        }
+                    });
+                    lines.push(currentLine.trim());
+                    return lines;
+                }
+                return label;
+            });
+        }
+
+        const benefitsData = {
+            labels: wrapLabels(['Ciudadanos (Simplificación, Seguridad)', 'Empresas (Eficiencia, Reducción Fraude)', 'Gobiernos (Eficiencia, Transparencia)'], 16),
+            datasets: [{
+                label: 'Beneficios de la EUDI Wallet',
+                data: [40, 35, 25], // Illustrative data
+                backgroundColor: [
+                    '#FFA600', // Accent Orange
+                    '#FF7C43', // Accent Light Orange
+                    '#F95D6A'  // Accent Pink
+                ],
+                borderColor: [
+                    '#FFFFFF',
+                    '#FFFFFF',
+                    '#FFFFFF'
+                ],
+                borderWidth: 2
+            }]
+        };
+
+        const benefitsChartCtx = document.getElementById('benefitsChart').getContext('2d');
+        new Chart(benefitsChartCtx, {
+            type: 'doughnut',
+            data: benefitsData,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            color: '#003F5C', // Dark Blue for legend text
+                             boxWidth: 15,
+                             padding:15,
+                             font: {
+                                size: 10
+                             }
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            title: function(tooltipItems) {
+                                const item = tooltipItems[0];
+                                let label = item.chart.data.labels[item.dataIndex];
+                                if (Array.isArray(label)) {
+                                  return label.join(' ');
+                                } else {
+                                  return label;
+                                }
+                            },
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                if (context.parsed !== null) {
+                                    label += context.parsed + '%';
+                                }
+                                return label;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    // Calculate offset for sticky nav if present
+                    const navHeight = document.querySelector('.sticky-nav')?.offsetHeight || 0;
+                    const elementPosition = targetElement.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - navHeight - 20; // 20px extra padding
+
+                    window.scrollTo({
+                         top: offsetPosition,
+                         behavior: "smooth"
+                    });
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
+

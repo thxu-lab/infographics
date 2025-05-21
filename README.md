@@ -1,1 +1,1 @@
-# infographics
+# Repositorio de Infografías Temáticas

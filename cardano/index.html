@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infografía: Ecosistema Blockchain de Cardano</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F7FFF7; /* Very Light Mint from conceptual "Energetic & Playful" palette */
+            color: #1A535C; /* Dark Teal */
+        }
+        .card {
+            background-color: white;
+            border-radius: 0.75rem; /* 12px */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            margin-bottom: 2rem; /* 32px */
+            padding: 1.5rem; /* 24px */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        h1, h2, h3 {
+            color: #1A535C; /* Dark Teal */
+        }
+        .accent-text {
+            color: #FF6B6B; /* Coral Red */
+        }
+        .secondary-accent-text {
+            color: #4ECDC4; /* Turquoise */
+        }
+        .stat-big {
+            font-size: 3rem; /* 48px */
+            font-weight: 700;
+            line-height: 1;
+        }
+        .stat-label {
+            font-size: 1rem; /* 16px */
+            color: #5A7D7C; /* Muted Teal */
+        }
+        .flow-box {
+            border: 2px solid #4ECDC4; /* Turquoise */
+            padding: 1rem;
+            border-radius: 0.5rem;
+            text-align: center;
+            background-color: #F0FFFF; /* Azure tint */
+        }
+        .flow-arrow {
+            font-size: 2rem;
+            color: #FF6B6B; /* Coral Red */
+            margin: 0 0.5rem;
+        }
+        .timeline-item {
+            position: relative;
+            padding-bottom: 2rem;
+            padding-left: 2.5rem; 
+        }
+        .timeline-item:last-child {
+            padding-bottom: 0;
+        }
+        .timeline-marker {
+            position: absolute;
+            left: 0;
+            top: 0.25rem;
+            width: 1.25rem; /* 20px */
+            height: 1.25rem; /* 20px */
+            border-radius: 50%;
+            background-color: #FF6B6B; /* Coral Red */
+            border: 3px solid #F7FFF7;
+        }
+        .timeline-line {
+            position: absolute;
+            left: 0.5625rem; /* 9px */
+            top: 1.25rem; /* 20px */
+            bottom: -0.5rem; /* Adjust to connect markers */
+            width: 3px;
+            background-color: #4ECDC4; /* Turquoise */
+        }
+        .timeline-item:last-child .timeline-line {
+            display: none;
+        }
+        .nav-button {
+            background-color: #4ECDC4;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            transition: background-color 0.3s;
+        }
+        .nav-button:hover {
+            background-color: #45B7D1;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="py-8 bg-gradient-to-r from-[#FF6B6B] to-[#FFA07A] text-white text-center">
+        <div class="container mx-auto px-4">
+            <h1 class="text-4xl font-bold mb-2">Explorando el Ecosistema de Cardano</h1>
+            <p class="text-lg">Una mirada profunda a la blockchain de tercera generación, su tecnología, gobernanza y potencial de mercado.</p>
+        </div>
+    </header>
+
+    <nav id="navbar" class="sticky top-0 bg-white shadow-md z-50 py-3 hidden md:block">
+        <div class="container mx-auto px-4 flex justify-center space-x-4">
+            <a href="#introduccion" class="nav-button">Introducción</a>
+            <a href="#tecnologia" class="nav-button">Tecnología</a>
+            <a href="#ada-ecosistema" class="nav-button">ADA y dApps</a>
+            <a href="#identidad" class="nav-button">Identidad</a>
+            <a href="#gobernanza" class="nav-button">Gobernanza</a>
+            <a href="#hoja-ruta" class="nav-button">Hoja de Ruta</a>
+            <a href="#adopcion" class="nav-button">Adopción</a>
+        </div>
+    </nav>
+
+    <main class="container mx-auto px-4 py-8">
+
+        <section id="introduccion" class="card">
+            <h2 class="text-3xl font-bold mb-6 text-center">Bienvenido a Cardano</h2>
+            <p class="mb-6 text-lg text-center">Cardano se erige como una plataforma blockchain de tercera generación, pionera en su enfoque basado en la investigación científica revisada por pares. Su misión es construir un futuro más seguro, transparente y equitativo, redistribuyendo el poder hacia el individuo.</p>
+            <div class="grid md:grid-cols-2 gap-8 items-center">
+                <div>
+                    <h3 class="text-2xl font-semibold mb-3 accent-text">Principios Fundamentales</h3>
+                    <ul class="list-disc list-inside space-y-2 mb-4">
+                        <li><strong>Prueba de Participación (PoS):</strong> Protocolo Ouroboros, verificablemente seguro y eficiente.</li>
+                        <li><strong>Desarrollo Basado en Evidencia:</strong> Rigor académico y filosofía científica.</li>
+                        <li><strong>Seguridad y Transparencia:</strong> Escrito en Haskell para máxima robustez.</li>
+                        <li><strong>Escalabilidad y Sostenibilidad:</strong> Diseñado para requisitos globales.</li>
+                        <li><strong>Código Abierto:</strong> Fomentando la inclusión y la innovación comunitaria.</li>
+                    </ul>
+                </div>
+                <div class="text-center">
+                    <div class="stat-big accent-text">99%</div>
+                    <div class="stat-label mb-4">Menos consumo energético que blockchains Proof-of-Work (PoW) gracias a Ouroboros.</div>
+                    <div class="stat-big secondary-accent-text">3ª</div>
+                    <div class="stat-label">Generación de tecnología Blockchain.</div>
+                </div>
+            </div>
+            <p class="mt-6 text-md">La solidez de Cardano radica en su compromiso con la investigación y la transparencia, ofreciendo una plataforma fiable para aplicaciones de misión crítica y una visión a largo plazo para la transformación digital.</p>
+        </section>
+
+        <section id="tecnologia" class="card">
+            <h2 class="text-3xl font-bold mb-6 text-center">La Arquitectura Innovadora de Cardano</h2>
+            <p class="mb-8 text-lg text-center">La pila tecnológica de Cardano está diseñada para ofrecer seguridad, escalabilidad y flexibilidad sin precedentes. Su arquitectura en capas y el modelo EUTXO son fundamentales para su rendimiento y fiabilidad.</p>
+            
+            <div class="grid md:grid-cols-2 gap-8 mb-8">
+                <div>
+                    <h3 class="text-2xl font-semibold mb-4 accent-text">Arquitectura en Capas</h3>
+                    <p class="mb-4">Cardano separa la lógica de liquidación de la computacional, permitiendo optimizaciones independientes y mayor robustez.</p>
+                    <div class="flex flex-col space-y-4 md:space-y-0 md:flex-row md:space-x-4 items-center justify-center">
+                        <div class="flow-box w-full md:w-2/5">
+                            <h4 class="font-semibold text-lg mb-1">Cardano Settlement Layer (CSL)</h4>
+                            <p class="text-sm">Gestiona transferencias de valor (ADA). Segura, rápida y eficiente.</p>
+                        </div>
+                        <div class="flow-arrow hidden md:block">&rarr;</div>
+                        <div class="flow-arrow block md:hidden transform rotate-90 my-2">&darr;</div>
+                        <div class="flow-box w-full md:w-2/5">
+                            <h4 class="font-semibold text-lg mb-1">Cardano Computation Layer (CCL)</h4>
+                            <p class="text-sm">Soporta dApps y contratos inteligentes. Flexible y escalable.</p>
+                        </div>
+                    </div>
+                     <p class="mt-4 text-sm text-gray-600">Esta separación permite que las actualizaciones en una capa no afecten directamente a la otra, mejorando la estabilidad y la capacidad de evolución de la plataforma.</p>
+                </div>
+                <div>
+                    <h3 class="text-2xl font-semibold mb-4 secondary-accent-text">Modelo Extended UTXO (EUTXO)</h3>
+                    <p class="mb-3">Una evolución del modelo UTXO de Bitcoin, optimizado para contratos inteligentes:</p>
+                    <ul class="list-disc list-inside space-y-1 text-sm">
+                        <li><strong>Determinismo:</strong> Resultados predecibles antes de la ejecución.</li>
+                        <li><strong>Tarifas Predecibles:</strong> Sin "guerras de gas", costes calculables.</li>
+                        <li><strong>Paralelización:</strong> Potencial para procesar múltiples transacciones simultáneamente.</li>
+                        <li><strong>Seguridad Mejorada:</strong> Facilita la verificación formal de contratos.</li>
+                        <li><strong>Soporte Nativo de Tokens:</strong> Gestión eficiente de activos personalizados.</li>
+                    </ul>
+                    <p class="mt-4 text-sm text-gray-600">EUTXO ofrece una base más segura y predecible para las dApps, crucial para la adopción empresarial y la confianza del usuario.</p>
+                </div>
+            </div>
+
+            <div>
+                <h3 class="text-2xl font-semibold mb-4 text-center accent-text">Protocolo de Consenso Ouroboros</h3>
+                <p class="text-center mb-2">El primer protocolo PoS revisado por pares y verificablemente seguro. Sus variantes (Classic, BFT, Praos, Genesis, Chronos) demuestran una evolución constante hacia mayor seguridad y eficiencia.</p>
+                <p class="text-center font-semibold secondary-accent-text">Beneficios clave: Eficiencia energética, descentralización robusta y seguridad probada.</p>
+            </div>
+        </section>
+
+        <section id="ada-ecosistema" class="card">
+            <h2 class="text-3xl font-bold mb-6 text-center">ADA y el Vibrante Ecosistema de dApps</h2>
+            <p class="mb-8 text-lg text-center">ADA es la criptomoneda nativa de Cardano, esencial para las transacciones, el staking y la gobernanza. Impulsa un ecosistema creciente de aplicaciones descentralizadas (dApps) en diversas categorías.</p>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="text-2xl font-semibold mb-4 accent-text">Utilidad de la Criptomoneda ADA</h3>
+                    <p class="mb-4">ADA no es solo una moneda; es la clave para interactuar y participar en la red Cardano.</p>
+                    <div class="chart-container mx-auto h-64 md:h-80">
+                        <canvas id="adaUtilityChart"></canvas>
+                    </div>
+                    <p class="mt-4 text-sm text-gray-600 text-center">La utilidad multifacética de ADA incentiva la participación activa en la seguridad y gobernanza de la red.</p>
+                </div>
+                <div>
+                    <h3 class="text-2xl font-semibold mb-4 secondary-accent-text">Principales dApps en Cardano (por UAW)</h3>
+                    <p class="mb-4">El ecosistema de dApps de Cardano es diverso, abarcando DeFi, NFTs, Gaming y más.</p>
+                    <div class="chart-container mx-auto h-72 md:h-80">
+                        <canvas id="dappsChart"></canvas>
+                    </div>
+                    <p class="mt-4 text-sm text-gray-600 text-center">Proyectos como iagon y World Mobile Token muestran el potencial de Cardano para soluciones empresariales y de infraestructura del mundo real.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="identidad" class="card">
+            <h2 class="text-3xl font-bold mb-6 text-center">Identidad Soberana: Atala PRISM y Veridian Wallet</h2>
+            <p class="mb-8 text-lg text-center">Cardano está a la vanguardia de la identidad descentralizada, ofreciendo a individuos y organizaciones control total sobre sus datos digitales a través de Atala PRISM y la Veridian Wallet.</p>
+            <div class="grid md:grid-cols-2 gap-8 items-start">
+                <div>
+                    <h3 class="text-2xl font-semibold mb-3 accent-text">Atala PRISM: Credenciales Verificables</h3>
+                    <p class="mb-3">Permite crear, poseer y gestionar identidades digitales de forma segura. Los beneficios incluyen:</p>
+                    <ul class="list-disc list-inside space-y-1 mb-4">
+                        <li>Mayor seguridad y transparencia.</li>
+                        <li>Control del usuario sobre datos personales.</li>
+                        <li>Reducción de fraude (ej. historiales laborales).</li>
+                        <li>Interoperabilidad entre plataformas.</li>
+                    </ul>
+                    <h4 class="font-semibold mt-4 mb-2 secondary-accent-text">Caso de Uso Destacado: Etiopía</h4>
+                    <p class="text-sm">Implementación de registros digitales para más de <strong class="accent-text">5 millones de estudiantes</strong> y <strong class="accent-text">750,000 profesores</strong>, demostrando la escalabilidad y el impacto en el mundo real.</p>
+                </div>
+                <div>
+                    <h3 class="text-2xl font-semibold mb-3 secondary-accent-text">Veridian Wallet</h3>
+                    <p class="mb-3">Una wallet móvil de código abierto para gestionar DIDs y credenciales verificables, basada en protocolos KERI y ACDC.</p>
+                    <ul class="list-disc list-inside space-y-1">
+                        <li>Soporte Android/iOS con biometría.</li>
+                        <li>Seguridad con Secure Enclave/TEE.</li>
+                        <li>Potencialmente resistente a la computación cuántica.</li>
+                        <li>Interoperabilidad global.</li>
+                    </ul>
+                     <p class="mt-4 text-sm text-gray-600">Veridian se posiciona como una capa de confianza opcional para la blockchain de Cardano, fundamental para la adopción masiva de la identidad digital.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="gobernanza" class="card">
+            <h2 class="text-3xl font-bold mb-6 text-center">Gobernanza Descentralizada: La Era Voltaire</h2>
+            <p class="mb-8 text-lg text-center">Con la Era Voltaire y CIP-1694, Cardano avanza hacia una gobernanza totalmente descentralizada, donde la comunidad de poseedores de ADA toma las riendas del futuro de la plataforma.</p>
+            <div class="grid md:grid-cols-2 gap-8 items-start">
+                <div>
+                    <h3 class="text-2xl font-semibold mb-4 accent-text">Actores Clave en la Gobernanza</h3>
+                    <p class="mb-4">Un sistema de controles y equilibrios para la toma de decisiones on-chain:</p>
+                    <div class="space-y-3">
+                        <div class="flow-box !bg-red-50">
+                            <h4 class="font-semibold text-lg">Representantes Delegados (DReps)</h4>
+                            <p class="text-sm">Votan en nombre de los poseedores de ADA.</p>
+                        </div>
+                        <div class="flow-box !bg-cyan-50">
+                            <h4 class="font-semibold text-lg">Comité Constitucional (CC)</h4>
+                            <p class="text-sm">Asegura la constitucionalidad de las propuestas.</p>
+                        </div>
+                        <div class="flow-box !bg-yellow-50">
+                            <h4 class="font-semibold text-lg">Operadores de Stake Pools (SPOs)</h4>
+                            <p class="text-sm">También votan y son cruciales para los hard forks.</p>
+                        </div>
+                    </div>
+                    <p class="mt-3 text-sm text-gray-600">Las acciones de gobernanza requieren la aprobación de al menos dos de estos tres roles, asegurando un consenso robusto.</p>
+                </div>
+                <div>
+                    <h3 class="text-2xl font-semibold mb-4 secondary-accent-text">Project Catalyst: Motor de Innovación</h3>
+                    <p class="mb-1">Uno de los fondos de subvenciones descentralizados más grandes del mundo, impulsado por la comunidad Cardano.</p>
+                    <div class="text-center my-4">
+                        <div class="stat-big secondary-accent-text">₳46.5M</div>
+                        <div class="stat-label mb-3">Presupuesto del Fondo 13 (Sept 2024).</div>
+                        <div class="stat-big accent-text">2,161+</div>
+                        <div class="stat-label">Propuestas financiadas hasta la fecha.</div>
+                    </div>
+                    <p class="text-sm">Fases de Project Catalyst:</p>
+                    <ol class="list-decimal list-inside space-y-1 text-sm">
+                        <li><strong>Innovación:</strong> Propuestas de la comunidad.</li>
+                        <li><strong>Gobernanza:</strong> Votación ponderada por ADA.</li>
+                        <li><strong>Ejecución:</strong> Financiación basada en hitos.</li>
+                    </ol>
+                    <p class="mt-3 text-sm text-gray-600">Catalyst democratiza la financiación y alinea el desarrollo con las prioridades de la comunidad.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="hoja-ruta" class="card">
+            <h2 class="text-3xl font-bold mb-6 text-center">Hoja de Ruta Estratégica: Hacia la Adopción Masiva</h2>
+            <p class="mb-8 text-lg text-center">Cardano tiene una visión ambiciosa para el futuro, centrada en la escalabilidad masiva, la interoperabilidad sin fisuras y una experiencia de usuario mejorada para soportar miles de millones de usuarios.</p>
+            
+            <div class="grid md:grid-cols-3 gap-6 mb-8">
+                <div class="p-4 bg-red-50 rounded-lg">
+                    <h3 class="text-xl font-semibold mb-2 accent-text">Escalabilidad Avanzada</h3>
+                    <p class="text-sm mb-1"><strong>Hydra:</strong> Solución de Capa 2 con hasta 1,000 TPS por "cabeza", potencial de millones de TPS.</p>
+                    <p class="text-sm"><strong>Ouroboros Leios:</strong> Nuevo diseño para creación de bloques paralela, aumentando drásticamente el rendimiento.</p>
+                </div>
+                <div class="p-4 bg-cyan-50 rounded-lg">
+                    <h3 class="text-xl font-semibold mb-2 secondary-accent-text">Interoperabilidad</h3>
+                    <p class="text-sm mb-1"><strong>Protocolo IBC y Puentes:</strong> Conectando Cardano con otras blockchains.</p>
+                    <p class="text-sm"><strong>Partner Chains (Cadenas Asociadas):</strong> Como Midnight (privacidad) y Minotaur (consenso multirecurso) para interacciones sin confianza.</p>
+                </div>
+                <div class="p-4 bg-yellow-50 rounded-lg">
+                    <h3 class="text-xl font-semibold mb-2" style="color: #D69E2E;">Experiencia de Usuario y DevX</h3>
+                    <p class="text-sm mb-1">Bibliotecas multilingües, RPCs mejoradas, indexadores personalizables.</p>
+                    <p class="text-sm">APIs de datos descentralizadas y nodos múltiples para mayor resiliencia.</p>
+                </div>
+            </div>
+
+            <div>
+                <h3 class="text-2xl font-semibold mb-4 text-center accent-text">Evolución de Cardano: Las Eras</h3>
+                <div class="relative">
+                    <div class="timeline-line hidden md:block" style="left: 50%; transform: translateX(-1.5px);"></div>
+                    <div class="space-y-8">
+                        <div class="md:flex md:items-center md:space-x-8 timeline-item-wrapper">
+                            <div class="md:w-1/2 md:text-right md:pr-8">
+                                <div class="timeline-item p-4 bg-white shadow rounded-lg border-l-4 border-[#FF6B6B]">
+                                    <div class="timeline-marker md:hidden" style="background-color: #FF6B6B;"></div>
+                                    <h4 class="font-bold text-lg text-[#FF6B6B]">Byron</h4>
+                                    <p class="text-sm">Fundación y lanzamiento de la red.</p>
+                                </div>
+                            </div>
+                            <div class="hidden md:block md:w-10 text-center">
+                                <div class="timeline-marker" style="background-color: #FF6B6B; left: 50%; transform: translateX(-50%);"></div>
+                            </div>
+                            <div class="md:w-1/2 md:pl-8"></div>
+                        </div>
+
+                        <div class="md:flex md:items-center md:space-x-8 timeline-item-wrapper">
+                            <div class="md:w-1/2 md:pr-8 md:order-2 md:text-left md:pl-8">
+                                <div class="timeline-item p-4 bg-white shadow rounded-lg border-l-4 md:border-l-0 md:border-r-4 border-[#4ECDC4]">
+                                    <div class="timeline-marker md:hidden" style="background-color: #4ECDC4;"></div>
+                                    <h4 class="font-bold text-lg text-[#4ECDC4]">Shelley</h4>
+                                    <p class="text-sm">Descentralización, staking y stake pools.</p>
+                                </div>
+                            </div>
+                             <div class="hidden md:block md:w-10 text-center md:order-1">
+                                <div class="timeline-marker" style="background-color: #4ECDC4; left: 50%; transform: translateX(-50%);"></div>
+                            </div>
+                            <div class="md:w-1/2 md:pr-8 md:order-1"></div>
+                        </div>
+
+                        <div class="md:flex md:items-center md:space-x-8 timeline-item-wrapper">
+                            <div class="md:w-1/2 md:text-right md:pr-8">
+                                <div class="timeline-item p-4 bg-white shadow rounded-lg border-l-4 border-[#FFE66D]">
+                                     <div class="timeline-marker md:hidden" style="background-color: #FFE66D;"></div>
+                                    <h4 class="font-bold text-lg text-[#D69E2E]">Goguen</h4>
+                                    <p class="text-sm">Contratos inteligentes (Plutus y Marlowe).</p>
+                                </div>
+                            </div>
+                            <div class="hidden md:block md:w-10 text-center">
+                                <div class="timeline-marker" style="background-color: #FFE66D; left: 50%; transform: translateX(-50%);"></div>
+                            </div>
+                            <div class="md:w-1/2 md:pl-8"></div>
+                        </div>
+                        
+                        <div class="md:flex md:items-center md:space-x-8 timeline-item-wrapper">
+                             <div class="md:w-1/2 md:pr-8 md:order-2 md:text-left md:pl-8">
+                                <div class="timeline-item p-4 bg-white shadow rounded-lg border-l-4 md:border-l-0 md:border-r-4 border-[#45B7D1]">
+                                    <div class="timeline-marker md:hidden" style="background-color: #45B7D1;"></div>
+                                    <h4 class="font-bold text-lg text-[#45B7D1]">Basho</h4>
+                                    <p class="text-sm">Escalabilidad y optimización (Hydra).</p>
+                                </div>
+                            </div>
+                            <div class="hidden md:block md:w-10 text-center md:order-1">
+                                <div class="timeline-marker" style="background-color: #45B7D1; left: 50%; transform: translateX(-50%);"></div>
+                            </div>
+                            <div class="md:w-1/2 md:pr-8 md:order-1"></div>
+                        </div>
+
+                        <div class="md:flex md:items-center md:space-x-8 timeline-item-wrapper">
+                            <div class="md:w-1/2 md:text-right md:pr-8">
+                                <div class="timeline-item p-4 bg-white shadow rounded-lg border-l-4 border-[#FFA07A]">
+                                    <div class="timeline-marker md:hidden" style="background-color: #FFA07A;"></div>
+                                    <h4 class="font-bold text-lg text-[#FFA07A]">Voltaire</h4>
+                                    <p class="text-sm">Gobernanza y autosostenibilidad (CIP-1694).</p>
+                                </div>
+                            </div>
+                             <div class="hidden md:block md:w-10 text-center">
+                                <div class="timeline-marker" style="background-color: #FFA07A; left: 50%; transform: translateX(-50%);"></div>
+                            </div>
+                            <div class="md:w-1/2 md:pl-8"></div>
+                        </div>
+                    </div>
+                </div>
+                 <p class="mt-6 text-sm text-gray-600 text-center">Cada era representa un hito en la evolución de Cardano hacia una plataforma global, descentralizada y autosostenible.</p>
+            </div>
+        </section>
+
+        <section id="adopcion" class="card">
+            <h2 class="text-3xl font-bold mb-6 text-center">Adopción Empresarial y Alianzas Estratégicas</h2>
+            <p class="mb-8 text-lg text-center">Cardano está ganando tracción en el mundo empresarial, forjando alianzas clave y demostrando su valor en casos de uso reales que abordan desafíos globales.</p>
+            <div class="grid md:grid-cols-2 gap-8 items-start">
+                <div>
+                    <h3 class="text-2xl font-semibold mb-4 accent-text">Asociación Estratégica: SERPRO (Brasil)</h3>
+                    <div class="p-4 border border-dashed border-[#FF6B6B] rounded-lg">
+                        <p class="mb-2">Colaboración con el servicio nacional de procesamiento de datos de Brasil, la <strong class="secondary-accent-text">mayor empresa de TI estatal del mundo</strong>.</p>
+                        <ul class="list-disc list-inside text-sm space-y-1">
+                            <li>Innovación tecnológica y desarrollo de infraestructura digital.</li>
+                            <li>Educación blockchain para ~8,000 empleados de SERPRO.</li>
+                            <li>Objetivo: Acelerar la transformación digital en servicios gubernamentales, mejorando transparencia y servicios para millones de ciudadanos.</li>
+                        </ul>
+                    </div>
+                    <p class="mt-3 text-sm text-gray-600">Esta alianza valida la preparación de Cardano para despliegues empresariales y del sector público a gran escala.</p>
+                </div>
+                <div>
+                    <h3 class="text-2xl font-semibold mb-4 secondary-accent-text">Propuesta de Valor para Empresas</h3>
+                     <p class="mb-3">Cardano ofrece beneficios tangibles para las organizaciones:</p>
+                    <ul class="list-disc list-inside space-y-1">
+                        <li><strong>Trazabilidad Mejorada:</strong> Cadenas de suministro transparentes.</li>
+                        <li><strong>Autenticidad Verificada:</strong> Protección de propiedad intelectual.</li>
+                        <li><strong>Sostenibilidad Comprobable:</strong> Seguimiento de impacto ESG.</li>
+                        <li><strong>Seguridad Robusta:</strong> Basada en investigación y Haskell.</li>
+                        <li><strong>Automatización Eficiente:</strong> Contratos inteligentes predecibles (EUTXO).</li>
+                        <li><strong>Fomento de Confianza:</strong> En acuerdos multipartitos.</li>
+                    </ul>
+                    <p class="mt-3 text-sm text-gray-600">La Cardano Foundation ofrece apoyo integral, desde el descubrimiento hasta la integración de soluciones.</p>
+                </div>
+            </div>
+             <p class="mt-8 text-center text-lg">Cardano no es solo tecnología; es un ecosistema robusto preparado para la innovación a largo plazo y la transformación digital, ofreciendo una ventaja competitiva a sus socios.</p>
+        </section>
+        
+    </main>
+
+    <footer class="text-center py-8 border-t border-gray-200">
+        <p class="text-sm text-gray-600">&copy; <span id="currentYear"></span> Infografía del Ecosistema Cardano. Basada en el Informe de Evaluación Estratégica.</p>
+        <p class="text-xs text-gray-500 mt-1">Visualizaciones generadas con Chart.js. Estilizado con Tailwind CSS.</p>
+    </footer>
+
+    <script>
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        function wrapLabels(label, maxWidth) {
+            const words = label.split(' ');
+            let currentLine = '';
+            const lines = [];
+            for (const word of words) {
+                if ((currentLine + ' ' + word).trim().length > maxWidth && currentLine.length > 0) {
+                    lines.push(currentLine);
+                    currentLine = word;
+                } else {
+                    currentLine = (currentLine + ' ' + word).trim();
+                }
+            }
+            if (currentLine.length > 0) {
+                lines.push(currentLine);
+            }
+            return lines.length > 0 ? lines : [label]; // Ensure single-word labels are still returned in an array if they are short
+        }
+        
+        const tooltipTitleCallback = function(tooltipItems) {
+            const item = tooltipItems[0];
+            let label = item.chart.data.labels[item.dataIndex];
+            if (Array.isArray(label)) {
+              return label.join(' ');
+            } else {
+              return label;
+            }
+        };
+
+        // Chart: Utilidad de ADA
+        const adaUtilityCtx = document.getElementById('adaUtilityChart').getContext('2d');
+        new Chart(adaUtilityCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Staking (Seguridad Red)', 'Gobernanza (Votaciones)', 'Tarifas de Transacción', 'Colateral Contratos Inteligentes'],
+                datasets: [{
+                    label: 'Utilidad de ADA',
+                    data: [40, 30, 15, 15], // Datos ilustrativos
+                    backgroundColor: ['#FF6B6B', '#4ECDC4', '#FFE66D', '#45B7D1'],
+                    borderColor: '#F7FFF7',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            font: { size: 10 }
+                        }
+                    },
+                    tooltip: {
+                        callbacks: { title: tooltipTitleCallback }
+                    }
+                }
+            }
+        });
+
+        // Chart: Principales dApps
+        const dappsData = {
+            labels: [
+                wrapLabels('DexHunter (DEX)', 16), 
+                wrapLabels('Minswap (DEX)', 16), 
+                wrapLabels('JPG Store (NFT Marketplace)', 16), 
+                wrapLabels('Wingriders (DEX)', 16),
+                wrapLabels('Liqwid Finance (Préstamos)', 16)
+            ],
+            datasets: [{
+                label: 'Unique Active Wallets (UAW - Ilustrativo)',
+                data: [796, 220, 177, 86, 140], // Datos de UAW, Liqwid Finance ajustado para mejor visualización
+                backgroundColor: ['#FF6B6B', '#4ECDC4', '#FFE66D', '#45B7D1', '#FFA07A'],
+                borderColor: ['#FF6B6B', '#4ECDC4', '#FFE66D', '#45B7D1', '#FFA07A'],
+                borderWidth: 1
+            }]
+        };
+
+        const dappsCtx = document.getElementById('dappsChart').getContext('2d');
+        new Chart(dappsCtx, {
+            type: 'bar',
+            data: dappsData,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                indexAxis: 'y',
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        title: { display: true, text: 'UAW (Ilustrativo)'}
+                    },
+                    y: {
+                         ticks: { font: { size: 10 } }
+                    }
+                },
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: { title: tooltipTitleCallback }
+                    }
+                }
+            }
+        });
+
+        // Sticky Nav Logic
+        const navbar = document.getElementById('navbar');
+        if (navbar) {
+            const navButtons = navbar.querySelectorAll('a');
+            let sections = [];
+            navButtons.forEach(button => {
+                const sectionId = button.getAttribute('href').substring(1);
+                const section = document.getElementById(sectionId);
+                if (section) sections.push(section);
+            });
+
+            window.onscroll = () => {
+                let currentSectionId = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop - navbar.offsetHeight - 20; // Adjusted offset
+                    if (window.pageYOffset >= sectionTop) {
+                        currentSectionId = section.getAttribute('id');
+                    }
+                });
+
+                navButtons.forEach(button => {
+                    button.classList.remove('!bg-[#FF6B6B]', 'font-semibold'); // Use ! to override Tailwind specificity if needed
+                    if (button.getAttribute('href') === `#${currentSectionId}`) {
+                        button.classList.add('!bg-[#FF6B6B]', 'font-semibold');
+                    }
+                });
+            };
+        }
+
+    </script>
+</body>
+</html>
+
