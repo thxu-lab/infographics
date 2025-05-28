@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infografía: El Auge del Open Banking</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8; /* Color de fondo general suave */
+        }
+        .chart-container-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 600px; /* Max-width para legibilidad en pantallas grandes */
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px; /* Altura base, responsive con Tailwind */
+            max-height: 400px; /* Max-height para evitar desbordamiento vertical */
+        }
+        @media (max-width: 768px) {
+            .chart-container-wrapper {
+                height: 300px; /* Altura reducida en móviles */
+            }
+        }
+        .section-title {
+            font-size: 2.25rem; /* 36px */
+            font-weight: 700;
+            margin-bottom: 1.5rem; /* 24px */
+            color: #0077B6; /* Azul oscuro principal */
+        }
+        .card {
+            background-color: white;
+            border-radius: 0.5rem; /* 8px */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            padding: 1.5rem; /* 24px */
+            margin-bottom: 1.5rem; /* 24px */
+        }
+        .card-title {
+            font-size: 1.5rem; /* 24px */
+            font-weight: 600;
+            color: #0077B6;
+            margin-bottom: 1rem; /* 16px */
+        }
+        .flowchart-node {
+            background-color: #CAF0F8; /* Azul muy claro */
+            border: 2px solid #90E0EF; /* Azul claro */
+            padding: 0.75rem 1rem;
+            border-radius: 0.375rem;
+            text-align: center;
+            color: #005A8D; /* Azul oscuro para texto */
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .flowchart-arrow {
+            font-size: 2rem;
+            color: #0077B6;
+            margin: 0 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+        .stat-number {
+            font-size: 3rem; /* 48px */
+            font-weight: 700;
+            color: #00B4D8; /* Azul medio */
+        }
+        .nav-item {
+            padding: 0.5rem 1rem;
+            color: #CAF0F8;
+            border-radius: 0.375rem;
+            transition: background-color 0.3s ease;
+        }
+        .nav-item:hover, .nav-item.active {
+            background-color: #00B4D8;
+            color: white;
+        }
+        /* Estilos para tablas */
+        .custom-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
+        .custom-table th, .custom-table td {
+            border: 1px solid #90E0EF; /* Azul claro para bordes */
+            padding: 0.75rem;
+            text-align: left;
+            font-size: 0.875rem; /* 14px */
+        }
+        .custom-table th {
+            background-color: #CAF0F8; /* Azul muy claro para encabezados */
+            color: #005A8D; /* Azul oscuro para texto de encabezado */
+            font-weight: 600;
+        }
+        .custom-table tbody tr:nth-child(even) {
+            background-color: #f8f9fa; /* Blanco alterno para filas */
+        }
+    </style>
+</head>
+<body class="text-gray-700 antialiased">
+
+<!--
+NARRATIVE PLAN:
+- Hero: Intro a Open Banking, stat global.
+- Sección 1: Qué es, objetivos, vs Tradicional.
+- Sección 2: Ecosistema (Actores, APIs). (Tabla 1)
+- Sección 3: Beneficios (Consumidores, Empresas), Casos de Uso (Agregación, PISP, PFM).
+- Sección 4: Transacciones Seguras con TPPs (Flujo PISP, Consentimiento, SCA).
+- Sección 5: Adopción Global (Gráfico Regiones, Gráfico Crecimiento Usuarios, Tabla 2).
+- Sección 6: Europa y PSD2 (Impacto, Tabla 3).
+- Sección 7: Desafíos (Seguridad, Privacidad, Fraude).
+- Sección 8: Futuro (Open Finance, Open Data, IA, RTP).
+- Sección 9: Conclusión.
+
+VISUALIZATION CHOICES (NO SVG, NO MERMAID JS CONFIRMED):
+- Hero - Stat Global: Goal: Inform, Method: HTML/CSS (Large Text). NO SVG.
+- Sec 1 - Objetivos Open Banking: Goal: Inform, Method: HTML/CSS + Unicode Icons. NO SVG.
+- Sec 1 - Diferencia Banca Tradicional: Goal: Compare, Method: HTML/CSS (Styled text blocks). NO SVG.
+- Sec 2 - Actores Ecosistema (Tabla 1 del informe): Goal: Organize, Method: HTML/CSS (Table). NO SVG.
+- Sec 2 - Rol de APIs: Goal: Inform, Method: HTML/CSS (Abstract visual: connected boxes). NO SVG.
+- Sec 3 - Casos de Uso (Iconos): Goal: Inform, Method: HTML/CSS + Unicode Icons. NO SVG.
+- Sec 4 - Flujo Transacción PISP: Goal: Organize, Method: HTML/CSS (Flexbox/Grid based diagram). NO SVG.
+- Sec 5 - Adopción Global por Región: Goal: Compare, Method: Chart.js Bar Chart (Canvas). NO SVG.
+- Sec 5 - Crecimiento Usuarios Open Banking: Goal: Change, Method: Chart.js Line Chart (Canvas). NO SVG.
+- Sec 5 - Enfoques Implementación (Tabla 2 del informe): Goal: Organize, Method: HTML/CSS (Table). NO SVG.
+- Sec 6 - Componentes PSD2 (Tabla 3 del informe): Goal: Organize, Method: HTML/CSS (Table). NO SVG.
+- Sec 7 - Desafíos: Goal: Inform, Method: HTML/CSS + Unicode Icons. NO SVG.
+- Sec 8 - Evolución Open Banking->Finance->Data: Goal: Organize, Method: HTML/CSS (Flexbox/Grid based diagram). NO SVG.
+- Sec 8 - Tecnologías Futuras: Goal: Inform, Method: HTML/CSS + Unicode Icons. NO SVG.
+
+CHOSEN COLOR PALETTE: Brilliant Blues (#0077B6, #00B4D8, #90E0EF, #CAF0F8, text: #005A8D or shades of grey).
+
+CONFIRMATION: NEITHER MERMAID JS NOR SVG GRAPHICS ARE USED IN THIS DOCUMENT.
+-->
+
+    <nav class="bg-[#0077B6] p-4 sticky top-0 z-50 shadow-lg">
+        <div class="container mx-auto flex flex-wrap justify-center items-center space-x-2 sm:space-x-4">
+            <a href="#intro" class="nav-item text-sm sm:text-base">Introducción</a>
+            <a href="#ecosistema" class="nav-item text-sm sm:text-base">Ecosistema</a>
+            <a href="#beneficios" class="nav-item text-sm sm:text-base">Beneficios</a>
+            <a href="#transacciones" class="nav-item text-sm sm:text-base">Transacciones</a>
+            <a href="#global" class="nav-item text-sm sm:text-base">Global</a>
+            <a href="#europa" class="nav-item text-sm sm:text-base">Europa</a>
+            <a href="#desafios" class="nav-item text-sm sm:text-base">Desafíos</a>
+            <a href="#futuro" class="nav-item text-sm sm:text-base">Futuro</a>
+        </div>
+    </nav>
+
+    <header class="bg-gradient-to-r from-[#0077B6] to-[#00B4D8] text-white py-16 px-4 text-center">
+        <div class="container mx-auto">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4">Open Banking: Una Nueva Era Financiera</h1>
+            <p class="text-xl md:text-2xl mb-8">Transformando la interacción con tus finanzas a través de la transparencia y el control.</p>
+            <div class="stat-number">95+</div>
+            <p class="text-lg">Jurisdicciones con iniciativas de Open Banking o Finanzas Abiertas en desarrollo (CCAF, 2024).</p>
+        </div>
+    </header>
+
+    <main class="container mx-auto p-4 md:p-8">
+
+        <section id="intro" class="my-12 scroll-mt-20">
+            <h2 class="section-title text-center">¿Qué es el Open Banking?</h2>
+            <div class="card">
+                <p class="text-lg mb-4">El Open Banking, o banca abierta, es un modelo que revoluciona la gestión de datos financieros. Permite a los bancos compartir de forma segura los datos de los clientes (con su consentimiento explícito) con proveedores de servicios externos (TPPs), como fintechs, a través de Interfaces de Programación de Aplicaciones (APIs). Este sistema busca fomentar la innovación, aumentar la competencia y empoderar al consumidor, dándole mayor control sobre su información financiera.</p>
+                
+                <h3 class="card-title mt-6">Objetivos Clave</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+                    <div class="p-4 bg-slate-50 rounded-lg">
+                        <span class="text-4xl mb-2">💡</span>
+                        <h4 class="font-semibold text-xl mb-1 text-[#0077B6]">Innovación</h4>
+                        <p>Facilita nuevos productos y servicios financieros ágiles y personalizados.</p>
+                    </div>
+                    <div class="p-4 bg-slate-50 rounded-lg">
+                        <span class="text-4xl mb-2">⚖️</span>
+                        <h4 class="font-semibold text-xl mb-1 text-[#0077B6]">Competencia</h4>
+                        <p>Reduce barreras de entrada, ofreciendo mejores precios y más opciones.</p>
+                    </div>
+                    <div class="p-4 bg-slate-50 rounded-lg">
+                        <span class="text-4xl mb-2">👤</span>
+                        <h4 class="font-semibold text-xl mb-1 text-[#0077B6]">Empoderamiento</h4>
+                        <p>Otorga al consumidor control real sobre sus datos financieros.</p>
+                    </div>
+                </div>
+
+                <h3 class="card-title mt-8">Open Banking vs. Banca Tradicional</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="border border-[#00B4D8] p-6 rounded-lg bg-white">
+                        <h4 class="font-bold text-xl mb-3 text-[#00B4D8]">Banca Tradicional</h4>
+                        <ul class="list-disc list-inside space-y-2 text-gray-600">
+                            <li>Datos en silos, controlados por el banco.</li>
+                            <li>Interoperabilidad limitada.</li>
+                            <li>Menor capacidad de elección para el cliente.</li>
+                            <li>Innovación a menudo más lenta.</li>
+                        </ul>
+                    </div>
+                    <div class="border border-[#0077B6] p-6 rounded-lg bg-white">
+                        <h4 class="font-bold text-xl mb-3 text-[#0077B6]">Open Banking</h4>
+                        <ul class="list-disc list-inside space-y-2 text-gray-600">
+                            <li>Datos compartidos con consentimiento del cliente.</li>
+                            <li>Alta interoperabilidad vía APIs.</li>
+                            <li>Mayor control y opciones para el cliente.</li>
+                            <li>Catalizador de innovación rápida.</li>
+                        </ul>
+                    </div>
+                </div>
+                 <p class="mt-6 text-sm text-gray-600">Este cambio implica una redefinición de la propiedad de los datos, transfiriendo poder desde las instituciones hacia los usuarios. Aunque la regulación inicial como PSD2 se ha centrado en que los bancos "abran" sus datos, el potencial completo se alcanzará con un intercambio de datos más simétrico en futuros modelos de Open Finance.</p>
+            </div>
+        </section>
+
+        <section id="ecosistema" class="my-12 scroll-mt-20">
+            <h2 class="section-title text-center">El Ecosistema en Acción</h2>
+            <div class="card">
+                <p class="text-lg mb-6">El Open Banking funciona gracias a la colaboración de varios actores clave, cada uno con un rol definido, y la tecnología de las APIs que permite la comunicación segura y estandarizada.</p>
+                
+                <h3 class="card-title">Actores Clave del Ecosistema</h3>
+                <p class="mb-4">El informe detalla los siguientes actores y sus roles, que interactúan para hacer posible el Open Banking:</p>
+                <div class="overflow-x-auto">
+                    <table id="actores-table" class="custom-table">
+                        <thead>
+                            <tr>
+                                <th>Actor</th>
+                                <th>Descripción Breve</th>
+                                <th>Rol Principal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="mt-4 text-sm text-gray-600">El regulador juega un papel crucial como árbitro y habilitador, equilibrando intereses y fomentando la creación de estándares comunes para la confianza y prosperidad del ecosistema.</p>
+
+                <h3 class="card-title mt-8">El Papel Fundamental de las APIs</h3>
+                <p class="mb-4">Las Interfaces de Programación de Aplicaciones (APIs) son la columna vertebral tecnológica del Open Banking. Actúan como "contratos digitales" estandarizados que permiten la comunicación segura entre bancos y TPPs.</p>
+                <div class="flex flex-col md:flex-row items-center justify-around space-y-4 md:space-y-0 md:space-x-4 p-6 bg-slate-50 rounded-lg">
+                    <div class="flowchart-node w-full md:w-1/4">Consumidor (PSU) Otorga Consentimiento</div>
+                    <div class="flowchart-arrow hidden md:flex">➔</div>
+                    <div class="md:hidden text-3xl text-center text-[#0077B6]">↓</div>
+                    <div class="flowchart-node w-full md:w-1/4">TPP (Fintech) Solicita Datos/Pago vía API</div>
+                    <div class="flowchart-arrow hidden md:flex">➔</div>
+                    <div class="md:hidden text-3xl text-center text-[#0077B6]">↓</div>
+                    <div class="flowchart-node w-full md:w-1/4">Banco (ASPSP) Verifica y Provee Datos/Ejecuta Pago vía API</div>
+                </div>
+                <p class="mt-6 text-sm text-gray-600">Este proceso se realiza sin que el TPP acceda directamente a las credenciales bancarias del cliente, utilizando protocolos seguros como OAuth 2.0 para la autorización. Las APIs definen qué datos se comparten, quién accede, bajo qué condiciones y con qué propósitos, asegurando un intercambio de información controlado y auditable.</p>
+            </div>
+        </section>
+
+        <section id="beneficios" class="my-12 scroll-mt-20">
+            <h2 class="section-title text-center">Beneficios y Casos de Uso Populares</h2>
+            <div class="card">
+                 <p class="text-lg mb-6">El Open Banking ofrece ventajas significativas tanto para consumidores como para empresas, habilitando una nueva generación de servicios financieros.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="card-title">Para los Consumidores</h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-start"><span class="text-[#0077B6] text-xl mr-2">✔</span> Mayor control y visibilidad de todas sus finanzas.</li>
+                            <li class="flex items-start"><span class="text-[#0077B6] text-xl mr-2">✔</span> Servicios altamente personalizados y adaptados.</li>
+                            <li class="flex items-start"><span class="text-[#0077B6] text-xl mr-2">✔</span> Acceso a una gama más amplia de productos innovadores.</li>
+                            <li class="flex items-start"><span class="text-[#0077B6] text-xl mr-2">✔</span> Mejora de la salud financiera con herramientas de gestión.</li>
+                            <li class="flex items-start"><span class="text-[#0077B6] text-xl mr-2">✔</span> Procesos simplificados (ej. solicitud de préstamos).</li>
+                        </ul>
+                        <p class="mt-2 text-sm text-gray-600">El objetivo es la "hiperpersonalización financiera", ofreciendo soluciones más relevantes.</p>
+                    </div>
+                    <div>
+                        <h3 class="card-title">Para Empresas y Fintechs</h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-start"><span class="text-[#0077B6] text-xl mr-2">🚀</span> Desarrollo de nuevos productos y servicios innovadores.</li>
+                            <li class="flex items-start"><span class="text-[#0077B6] text-xl mr-2">🎯</span> Acceso a nuevos segmentos de clientes.</li>
+                            <li class="flex items-start"><span class="text-[#0077B6] text-xl mr-2">📊</span> Mejor toma de decisiones basada en datos.</li>
+                            <li class="flex items-start"><span class="text-[#0077B6] text-xl mr-2">💳</span> Optimización de procesos de pago, menores costes.</li>
+                            <li class="flex items-start"><span class="text-[#0077B6] text-xl mr-2">⚙️</span> Eficiencia operativa y reducción de costes.</li>
+                        </ul>
+                         <p class="mt-2 text-sm text-gray-600">Fomenta la colaboración y la creación de un ecosistema financiero más dinámico.</p>
+                    </div>
+                </div>
+
+                <h3 class="card-title mt-10 text-center">Casos de Uso Comunes</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+                    <div class="p-6 bg-slate-50 rounded-lg text-center">
+                        <span class="text-5xl mb-3 block">🔗</span>
+                        <h4 class="font-semibold text-xl mb-2 text-[#0077B6]">Agregación de Cuentas</h4>
+                        <p>Visión consolidada de todas tus cuentas bancarias en una sola app para una mejor gestión.</p>
+                    </div>
+                    <div class="p-6 bg-slate-50 rounded-lg text-center">
+                        <span class="text-5xl mb-3 block">💸</span>
+                        <h4 class="font-semibold text-xl mb-2 text-[#0077B6]">Iniciación de Pagos (PISP)</h4>
+                        <p>Paga directamente desde tu cuenta bancaria en apps de terceros de forma rápida y segura.</p>
+                    </div>
+                    <div class="p-6 bg-slate-50 rounded-lg text-center">
+                        <span class="text-5xl mb-3 block">📈</span>
+                        <h4 class="font-semibold text-xl mb-2 text-[#0077B6]">Gestión de Finanzas Personales (PFM)</h4>
+                        <p>Herramientas para presupuestar, analizar gastos y recibir consejos financieros personalizados.</p>
+                    </div>
+                     <div class="p-6 bg-slate-50 rounded-lg text-center sm:col-span-2 lg:col-span-1 lg:col-start-2">
+                        <span class="text-5xl mb-3 block">🛒</span>
+                        <h4 class="font-semibold text-xl mb-2 text-[#0077B6]">Pagos en E-commerce</h4>
+                        <p>Experiencia de pago online mejorada, más directa y segura desde la cuenta bancaria.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="transacciones" class="my-12 scroll-mt-20">
+            <h2 class="section-title text-center">Transacciones Seguras con Terceros</h2>
+            <div class="card">
+                <p class="text-lg mb-6">Una capacidad clave del Open Banking es permitir transacciones desde apps de terceros, como pagar en una tienda online directamente desde tu cuenta bancaria, a través de Proveedores de Servicios de Iniciación de Pagos (PISP).</p>
+                
+                <h3 class="card-title">Flujo de una Transacción PISP</h3>
+                <div class="space-y-4 md:space-y-0 md:flex md:flex-wrap md:items-stretch md:justify-between p-4 bg-slate-50 rounded-lg">
+                    <div class="flowchart-node md:w-[18%]">1. Cliente elige "Pagar con mi banco" en app de tercero.</div>
+                    <div class="flowchart-arrow hidden md:flex">➔</div> <div class="md:hidden text-3xl text-center text-[#0077B6]">↓</div>
+                    <div class="flowchart-node md:w-[18%]">2. Redirección segura al banco del cliente.</div>
+                    <div class="flowchart-arrow hidden md:flex">➔</div> <div class="md:hidden text-3xl text-center text-[#0077B6]">↓</div>
+                    <div class="flowchart-node md:w-[18%]">3. Autenticación Reforzada (SCA) con el banco (credenciales NUNCA compartidas con TPP).</div>
+                    <div class="flowchart-arrow hidden md:flex">➔</div> <div class="md:hidden text-3xl text-center text-[#0077B6]">↓</div>
+                    <div class="flowchart-node md:w-[18%]">4. Cliente autoriza la transacción específica.</div>
+                    <div class="flowchart-arrow hidden md:flex">➔</div> <div class="md:hidden text-3xl text-center text-[#0077B6]">↓</div>
+                    <div class="flowchart-node md:w-[18%]">5. Banco ejecuta el pago y confirma a todas las partes.</div>
+                </div>
+                <p class="mt-4 text-sm text-gray-600">La clave es equilibrar seguridad robusta con una experiencia de usuario fluida.</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+                    <div>
+                        <h4 class="font-semibold text-xl mb-2 text-[#0077B6]"><span class="text-2xl mr-2">🛡️</span>Consentimiento del Usuario</h4>
+                        <p>Es la piedra angular: debe ser explícito, informado, granular y fácilmente revocable. La transparencia es vital para la confianza.</p>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-xl mb-2 text-[#0077B6]"><span class="text-2xl mr-2">🔑</span>Autenticación Reforzada (SCA)</h4>
+                        <p>Exige al menos dos factores (conocimiento, posesión, inherencia) para verificar la identidad, crucial para la seguridad de pagos y acceso a datos.</p>
+                    </div>
+                </div>
+                <p class="mt-6 text-sm text-gray-600">Otras medidas de seguridad incluyen APIs seguras con OAuth 2.0, cifrado, certificados digitales (eIDAS en Europa) y gestión de APIs por los bancos.</p>
+            </div>
+        </section>
+        
+        <section id="global" class="my-12 scroll-mt-20">
+            <h2 class="section-title text-center">Open Banking en el Mundo</h2>
+            <div class="card">
+                <p class="text-lg mb-6">La adopción del Open Banking es un fenómeno global, con variaciones en el enfoque (regulatorio vs. de mercado) y el ritmo de implementación. Cerca de 95 jurisdicciones tienen iniciativas activas.</p>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <h3 class="card-title">Nivel de Madurez de Open Banking por Región (Ilustrativo)</h3>
+                        <p class="text-sm mb-4 text-gray-600">Este gráfico ilustra el nivel general de desarrollo y adopción de Open Banking en diferentes regiones clave, basado en la información del informe.</p>
+                        <div class="chart-container-wrapper h-[300px] md:h-[350px]">
+                            <canvas id="globalAdoptionChart"></canvas>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="card-title">Proyección de Crecimiento de Usuarios Globales</h3>
+                         <p class="text-sm mb-4 text-gray-600">Se espera un aumento significativo en el número de usuarios de Open Banking a nivel mundial en los próximos años.</p>
+                        <div class="chart-container-wrapper h-[300px] md:h-[350px]">
+                            <canvas id="userGrowthChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                
+                <h3 class="card-title mt-8">Enfoques de Implementación</h3>
+                <p class="mb-4">El informe describe dos estrategias principales para la implementación del Open Banking:</p>
+                <div class="overflow-x-auto">
+                    <table id="enfoques-table" class="custom-table">
+                        <thead>
+                            <tr>
+                                <th>Característica</th>
+                                <th>Enfoque Regulatorio</th>
+                                <th>Enfoque de Mercado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="mt-4 text-sm text-gray-600">Se observa una tendencia hacia la "convergencia regulatoria", donde países con enfoques de mercado se mueven hacia marcos más formales.</p>
+
+                <h4 class="font-semibold text-xl my-4 text-[#0077B6]">Ejemplos Destacados:</h4>
+                <ul class="list-disc list-inside space-y-1 text-sm text-gray-600">
+                    <li><span class="font-semibold">Europa (PSD2) y Reino Unido (OBIE):</span> Pioneros regulatorios con alta estandarización.</li>
+                    <li><span class="font-semibold">Brasil:</span> Éxito regulatorio por fases, rápida adopción y evolución a Open Finance.</li>
+                    <li><span class="font-semibold">Australia (CDR):</span> Regulación integral que se expande a otros sectores.</li>
+                    <li><span class="font-semibold">India (India Stack, UPI, AA):</span> Modelo único con infraestructura digital pública.</li>
+                    <li><span class="font-semibold">EE.UU.:</span> Tradicionalmente de mercado, moviéndose hacia regulación federal (Sección 1033).</li>
+                </ul>
+                <p class="mt-4 text-sm text-gray-600">El éxito depende de la infraestructura digital y un ecosistema fintech maduro.</p>
+            </div>
+        </section>
+
+        <section id="europa" class="my-12 scroll-mt-20">
+            <h2 class="section-title text-center">Europa: Pionera con PSD2</h2>
+            <div class="card">
+                <p class="text-lg mb-6">La Directiva de Servicios de Pago 2 (PSD2) ha sido el motor del Open Banking en Europa, buscando aumentar la competencia, promover la innovación y mejorar la protección del consumidor en el mercado de pagos.</p>
+                
+                <h3 class="card-title">Pilares de PSD2 para Open Banking:</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div class="p-4 bg-slate-50 rounded-lg">
+                        <h4 class="font-semibold text-xl text-[#0077B6]">XS2A (Acceso a Cuentas)</h4>
+                        <p>Obliga a los bancos a dar acceso a cuentas de pago a TPPs autorizados (con consentimiento) vía APIs para servicios AISP (información) y PISP (iniciación de pagos).</p>
+                    </div>
+                    <div class="p-4 bg-slate-50 rounded-lg">
+                        <h4 class="font-semibold text-xl text-[#0077B6]">SCA (Autenticación Reforzada)</h4>
+                        <p>Requiere verificación de identidad con al menos dos factores para la mayoría de pagos online y acceso a cuentas, reduciendo el fraude.</p>
+                    </div>
+                </div>
+                 <p class="text-sm text-gray-600 mb-6">Los Estándares Técnicos de Regulación (RTS) de la Autoridad Bancaria Europea (EBA) detallan los requisitos técnicos para SCA y la comunicación segura, siendo clave para la operatividad del Open Banking desde 2019.</p>
+
+                <h3 class="card-title">Impacto de PSD2</h3>
+                <p class="mb-4">La PSD2 ha transformado el ecosistema financiero europeo, como se resume en la tabla basada en el informe:</p>
+                <div class="overflow-x-auto">
+                    <table id="psd2-table" class="custom-table">
+                        <thead>
+                            <tr>
+                                <th>Componente de PSD2</th>
+                                <th>Impacto en Bancos (ASPSP)</th>
+                                <th>Impacto en TPPs</th>
+                                <th>Impacto en Consumidores</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+                 <p class="mt-4 text-sm text-gray-600">Para los bancos, ha supuesto inversiones pero también oportunidades de modernización. Para los TPPs, un marco para innovar, aunque dependiente de la calidad de las APIs bancarias. Para los consumidores, más opciones y control, pero con necesidad de comprensión.</p>
+            </div>
+        </section>
+
+        <section id="desafios" class="my-12 scroll-mt-20">
+            <h2 class="section-title text-center">Desafíos y Riesgos del Open Banking</h2>
+            <div class="card">
+                <p class="text-lg mb-6">A pesar de sus beneficios, el Open Banking presenta desafíos significativos en seguridad, privacidad y prevención del fraude, que deben gestionarse para mantener la confianza.</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="p-4 border border-red-300 bg-red-50 rounded-lg">
+                        <span class="text-4xl mb-2 text-red-600">🔒</span>
+                        <h4 class="font-semibold text-xl text-red-700">Seguridad de Datos y Ciberseguridad</h4>
+                        <p>Proteger APIs, asegurar la robustez de TPPs, cifrar datos y monitorizar continuamente. Es una responsabilidad compartida.</p>
+                    </div>
+                    <div class="p-4 border border-yellow-400 bg-yellow-50 rounded-lg">
+                        <span class="text-4xl mb-2 text-yellow-600">🤫</span>
+                        <h4 class="font-semibold text-xl text-yellow-700">Privacidad del Consumidor</h4>
+                        <p>Garantizar consentimiento informado y granular, control y revocación fácil, minimización de datos y transparencia.</p>
+                    </div>
+                    <div class="p-4 border border-orange-400 bg-orange-50 rounded-lg">
+                        <span class="text-4xl mb-2 text-orange-600">🚫</span>
+                        <h4 class="font-semibold text-xl text-orange-700">Prevención del Fraude</h4>
+                        <p>Mitigar riesgos de robo de identidad, fraude en pagos (SCA ayuda), phishing. Requiere tecnología y educación del consumidor.</p>
+                    </div>
+                </div>
+                 <p class="mt-6 text-sm text-gray-600">Organismos como ENISA y el FSB contribuyen a identificar y mitigar estos riesgos a nivel más amplio. La "fatiga de consentimiento" es un desafío UX a considerar, buscando equilibrio entre control y simplicidad.</p>
+            </div>
+        </section>
+
+        <section id="futuro" class="my-12 scroll-mt-20">
+            <h2 class="section-title text-center">El Futuro es Abierto</h2>
+            <div class="card">
+                 <p class="text-lg mb-6">El Open Banking es el primer paso hacia una transformación más amplia: Open Finance y Open Data, impulsada por nuevas tecnologías y una regulación evolutiva.</p>
+                
+                <h3 class="card-title">Evolución del Acceso a Datos</h3>
+                <div class="flex flex-col md:flex-row items-center justify-around space-y-4 md:space-y-0 md:space-x-2 p-6 bg-slate-50 rounded-lg">
+                    <div class="flowchart-node w-full md:w-1/3"><strong>Open Banking</strong><br/>(Datos de cuentas de pago)</div>
+                    <div class="flowchart-arrow hidden md:flex text-2xl">➔</div><div class="md:hidden text-3xl text-center text-[#0077B6]">↓</div>
+                    <div class="flowchart-node w-full md:w-1/3"><strong>Open Finance</strong><br/>(Seguros, inversiones, pensiones, hipotecas)</div>
+                    <div class="flowchart-arrow hidden md:flex text-2xl">➔</div><div class="md:hidden text-3xl text-center text-[#0077B6]">↓</div>
+                    <div class="flowchart-node w-full md:w-1/3"><strong>Open Data</strong><br/>(Telecom, salud, utilities, retail, etc.)</div>
+                </div>
+                <p class="mt-4 text-sm text-gray-600">Esta evolución permite una visión holística y servicios hiperpersonalizados, desdibujando fronteras entre industrias y fomentando las "finanzas embebidas".</p>
+
+                <h3 class="card-title mt-8">Tendencias Clave</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="p-4">
+                        <span class="text-3xl mb-2 text-[#0077B6]">🧠</span>
+                        <h4 class="font-semibold text-lg">Inteligencia Artificial (IA) y ML</h4>
+                        <p class="text-sm">Para analizar datos, personalizar ofertas, automatizar decisiones y mejorar detección de fraude. La IA generativa transformará la interacción.</p>
+                    </div>
+                    <div class="p-4">
+                        <span class="text-3xl mb-2 text-[#0077B6]">⚡</span>
+                        <h4 class="font-semibold text-lg">Pagos en Tiempo Real (RTP)</h4>
+                        <p class="text-sm">El Open Banking facilita pagos de cuenta a cuenta instantáneos, más rápidos y baratos.</p>
+                    </div>
+                    <div class="p-4">
+                        <span class="text-3xl mb-2 text-[#0077B6]">📜</span>
+                        <h4 class="font-semibold text-lg">Evolución Regulatoria (PSD3, FiDA)</h4>
+                        <p class="text-sm">Nuevas directivas en Europa (esperadas para ~2026) para mejorar PSD2 y avanzar hacia Open Finance.</p>
+                    </div>
+                </div>
+                <p class="mt-6 text-sm text-gray-600">La IA, aunque motor de valor, intensifica desafíos éticos y de privacidad, requiriendo gobernanza robusta.</p>
+            </div>
+        </section>
+        
+        <section id="conclusion" class="my-12 scroll-mt-20">
+            <div class="card bg-gradient-to-r from-[#0077B6] to-[#00B4D8] text-white text-center py-12">
+                <h2 class="text-3xl font-bold mb-4">Un Sistema Financiero Transformado</h2>
+                <p class="text-xl mb-6 mx-auto max-w-3xl">El Open Banking está redefiniendo el panorama financiero global, haciéndolo más interconectado, transparente, eficiente y centrado en el cliente. Es un viaje continuo hacia un futuro donde el control de los datos reside en el consumidor, impulsando la innovación y la personalización. El equilibrio entre innovación, seguridad y privacidad será clave para el éxito sostenible de esta revolución de datos.</p>
+                <p class="font-semibold">El futuro de tus finanzas está en tus manos.</p>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="text-center py-8 bg-[#005A8D] text-gray-300">
+        <p>&copy; 2024 Infografía Open Banking. Basado en el informe de investigación sobre Open Banking.</p>
+        <p class="text-xs mt-1">Contenido generado con fines ilustrativos y educativos.</p>
+    </footer>
+
+    <script>
+        // Función para procesar etiquetas largas para Chart.js
+        function processLabels(labels, maxLength = 16) {
+            return labels.map(label => {
+                if (typeof label === 'string' && label.length > maxLength) {
+                    const words = label.split(' ');
+                    const lines = [];
+                    let currentLine = '';
+                    words.forEach(word => {
+                        if ((currentLine + word).length > maxLength && currentLine.length > 0) {
+                            lines.push(currentLine.trim());
+                            currentLine = word + ' ';
+                        } else {
+                            currentLine += word + ' ';
+                        }
+                    });
+                    lines.push(currentLine.trim());
+                    return lines;
+                }
+                return label;
+            });
+        }
+
+        // Configuración común de tooltips para Chart.js
+        const commonTooltipConfig = {
+            callbacks: {
+                title: function(tooltipItems) {
+                    const item = tooltipItems[0];
+                    let label = item.chart.data.labels[item.dataIndex];
+                    if (Array.isArray(label)) {
+                        return label.join(' ');
+                    }
+                    return label;
+                }
+            }
+        };
+        
+        // Datos para las tablas (extraídos del informe)
+        const actoresData = [
+            { actor: "Bancos (ASPSP)", desc: "Entidades que custodian las cuentas de los clientes.", rol: "Proporcionar acceso seguro a datos vía APIs (con consentimiento)." },
+            { actor: "Proveedores de Servicios de Terceros (TPP)", desc: "Empresas (fintechs, etc.) autorizadas.", rol: "Utilizar datos para ofrecer servicios innovadores (agregación, iniciación de pagos)." },
+            { actor: "Consumidores (PSU)", desc: "Titulares de cuentas, dueños de los datos.", rol: "Otorgar consentimiento explícito para acceso y pagos." },
+            { actor: "Reguladores", desc: "Organismos gubernamentales o autoridades financieras.", rol: "Definir reglas, asegurar competencia, seguridad y protección." }
+        ];
+
+        const enfoquesData = [
+            { caracteristica: "Impulsor Principal", regulatorio: "Gobiernos y reguladores.", mercado: "Industria (bancos, fintechs)." },
+            { caracteristica: "Estandarización de APIs", regulatorio: "A menudo mandatoria o guiada.", mercado: "Voluntaria o propietaria." },
+            { caracteristica: "Obligatoriedad para Bancos", regulatorio: "Generalmente obligatoria.", mercado: "Voluntaria." },
+            { caracteristica: "Protección al Consumidor", regulatorio: "Generalmente alta y explícita.", mercado: "Variable, depende de prácticas." },
+            { caracteristica: "Riesgo de Fragmentación", regulatorio: "Menor.", mercado: "Mayor." }
+        ];
+        
+        const psd2Data = [
+           { componente: "Acceso a Cuentas (XS2A)", impactoBancos: "Desarrollar APIs. Oportunidad de colaborar/competir.", impactoTpps: "Habilitación para AISP/PISP. Acceso estandarizado.", impactoConsumidores: "Uso de servicios TPPs. Mayor control de datos." },
+           { componente: "Autenticación Reforzada (SCA)", impactoBancos: "Implementar SCA robustos. Reducción de fraude.", impactoTpps: "Integrar flujos SCA. Asegurar UX fluida.", impactoConsumidores: "Mayor seguridad. Posibles pasos adicionales." },
+           { componente: "Regulación de TPPs", impactoBancos: "Interactuar con TPPs autorizados.", impactoTpps: "Necesidad de autorización. Cumplir requisitos.", impactoConsumidores: "Mayor confianza al usar TPPs regulados." },
+           { componente: "Estándares Técnicos de Regulación (RTS)", impactoBancos: "Cumplir RTS para APIs y SCA.", impactoTpps: "Beneficio de estándares, aunque calidad APIs varía.", impactoConsumidores: "Beneficio indirecto de mayor seguridad." }
+        ];
+
+        function populateTable(tableId, data, columns) {
+            const tableBody = document.getElementById(tableId).querySelector('tbody');
+            if (!tableBody) return;
+            tableBody.innerHTML = ''; // Clear existing rows
+            data.forEach(rowData => {
+                const row = tableBody.insertRow();
+                columns.forEach(column => {
+                    const cell = row.insertCell();
+                    cell.textContent = rowData[column.key];
+                });
+            });
+        }
+        
+        document.addEventListener('DOMContentLoaded', function () {
+            // Poblar tablas
+            populateTable('actores-table', actoresData, [
+                { key: 'actor', label: 'Actor' },
+                { key: 'desc', label: 'Descripción Breve' },
+                { key: 'rol', label: 'Rol Principal' }
+            ]);
+            populateTable('enfoques-table', enfoquesData, [
+                { key: 'caracteristica', label: 'Característica' },
+                { key: 'regulatorio', label: 'Enfoque Regulatorio' },
+                { key: 'mercado', label: 'Enfoque de Mercado' }
+            ]);
+            populateTable('psd2-table', psd2Data, [
+                { key: 'componente', label: 'Componente de PSD2' },
+                { key: 'impactoBancos', label: 'Impacto en Bancos (ASPSP)' },
+                { key: 'impactoTpps', label: 'Impacto en TPPs' },
+                { key: 'impactoConsumidores', label: 'Impacto en Consumidores' }
+            ]);
+
+            // Gráfico de Adopción Global
+            const globalAdoptionCtx = document.getElementById('globalAdoptionChart')?.getContext('2d');
+            if (globalAdoptionCtx) {
+                new Chart(globalAdoptionCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: processLabels(['Europa', 'Asia-Pacífico', 'América Latina', 'América del Norte', 'África']),
+                        datasets: [{
+                            label: 'Nivel de Madurez/Adopción (Ilustrativo)',
+                            data: [9, 8, 7, 6, 4], // Datos ilustrativos
+                            backgroundColor: ['#0077B6', '#00B4D8', '#90E0EF', '#00A1C9', '#6CBEE0'],
+                            borderColor: '#005A8D',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                max: 10,
+                                title: { display: true, text: 'Nivel (1-10)' }
+                            },
+                            x: {
+                                ticks: { autoSkip: false }
+                            }
+                        },
+                        plugins: {
+                            legend: { display: true, position: 'top' },
+                            tooltip: commonTooltipConfig
+                        }
+                    }
+                });
+            }
+
+            // Gráfico de Crecimiento de Usuarios
+            const userGrowthCtx = document.getElementById('userGrowthChart')?.getContext('2d');
+            if (userGrowthCtx) {
+                const userGrowthData = {
+                    labels: ['2025', '2026', '2027', '2028', '2029'],
+                    datasets: [{
+                        label: 'Usuarios Globales de Open Banking (Millones)',
+                        data: [183, 298.5, 414, 529.5, 645], // Dato del informe: 183M en 2025 a 645M en 2029 (interpolado)
+                        fill: true,
+                        backgroundColor: 'rgba(0, 180, 216, 0.2)',
+                        borderColor: '#00B4D8',
+                        tension: 0.1
+                    }]
+                };
+                new Chart(userGrowthCtx, {
+                    type: 'line',
+                    data: userGrowthData,
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: false,
+                                title: { display: true, text: 'Millones de Usuarios' }
+                            }
+                        },
+                        plugins: {
+                            legend: { display: true, position: 'top' },
+                            tooltip: commonTooltipConfig
+                        }
+                    }
+                });
+            }
+
+            // Smooth scroll para la navegación
+            document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        // Quitar clase 'active' de todos los items
+                        document.querySelectorAll('nav a.nav-item').forEach(item => item.classList.remove('active'));
+                        // Añadir clase 'active' al item clickeado
+                        this.classList.add('active');
+                        
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Activar nav item según scroll
+            const sections = document.querySelectorAll('section[id]');
+            const navItems = document.querySelectorAll('nav a.nav-item');
+
+            window.addEventListener('scroll', () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    if (pageYOffset >= (sectionTop - sectionHeight / 3 - 70)) { // 70px para el nav sticky
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navItems.forEach(item => {
+                    item.classList.remove('active');
+                    if (item.getAttribute('href').substring(1) === current) {
+                        item.classList.add('active');
+                    }
+                });
+                 // Si no hay sección actual (ej. al inicio o final), desmarcar todos
+                if (!current && pageYOffset < sections[0].offsetTop) {
+                     navItems.forEach(item => item.classList.remove('active'));
+                }
+            });
+
+
+        });
+    </script>
+</body>
+</html>
+
