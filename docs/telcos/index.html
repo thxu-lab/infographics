@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Infografía: SSI en Telecomunicaciones</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f0f4f8;
+    }
+    .chart-container {
+      position: relative;
+      width: 100%;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      height: 300px;
+      max-height: 400px;
+    }
+    @media (min-width: 768px) {
+      .chart-container {
+        height: 350px;
+      }
+    }
+    .gradient-text {
+      background: linear-gradient(90deg, #7a5195, #ef5675);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .kpi-card {
+      background-color: #ffffff;
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      border-left: 5px solid #ffa600;
+    }
+    .flow-node {
+      background-color: #ffffff;
+      border: 2px solid #374c80;
+      color: #003f5c;
+    }
+    .flow-arrow {
+      position: relative;
+      width: 100%;
+      height: 2px;
+      background-color: #7a5195;
+      margin: 1.5rem 0;
+    }
+    .flow-arrow::after {
+      content: '▶';
+      position: absolute;
+      right: -10px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #7a5195;
+      font-size: 1.25rem;
+    }
+    .telco-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .telco-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+  </style>
+</head>
+<body class="text-gray-800">
+<header class="bg-white shadow-md sticky top-0 z-50">
+    <nav class="container mx-auto px-6 py-4">
+        <h1 class="text-2xl md:text-3xl font-bold text-center gradient-text">Identidad Auto Soberana (SSI) en Telecomunicaciones</h1>
+    </nav>
+</header>
+
+<main class="container mx-auto p-4 md:p-8">
+
+    <section id="market-growth" class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-extrabold mb-4 text-[#003f5c]">Un Mercado en Crecimiento Exponencial</h2>
+        <p class="max-w-3xl mx-auto text-lg text-gray-600 mb-8">
+            El mercado global de SSI está experimentando una transformación radical, impulsado por la necesidad de seguridad y control del usuario. Las proyecciones indican un cambio fundamental en cómo gestionamos la identidad digital.
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            <div class="kpi-card">
+                <p class="text-lg font-semibold text-[#bc5090]">Proyección de Mercado (2034)</p>
+                <p class="text-5xl font-black text-[#003f5c] mt-2">$1.15+ Billones</p>
+                <p class="text-gray-500 mt-2">Desde $1.83 mil millones en 2024</p>
+            </div>
+            <div class="kpi-card">
+                <p class="text-lg font-semibold text-[#bc5090]">Crecimiento Anual (CAGR)</p>
+                <p class="text-5xl font-black text-[#003f5c] mt-2">90.52%</p>
+                <p class="text-gray-500 mt-2">Una tasa de crecimiento sin precedentes</p>
+            </div>
+        </div>
+        <div class="mt-12 bg-white rounded-lg shadow-lg p-6">
+            <h3 class="text-2xl font-bold text-center mb-4 text-[#003f5c]">Evolución del Mercado SSI (2024-2034)</h3>
+            <p class="text-center text-gray-600 mb-4">La curva de crecimiento proyectada muestra una adopción masiva, transformando la SSI de un nicho tecnológico a un estándar de la industria.</p>
+            <div class="chart-container h-64 md:h-96">
+                <canvas id="marketGrowthChart"></canvas>
+            </div>
+        </div>
+    </section>
+
+    <section id="drivers" class="mb-16">
+         <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-4 text-[#003f5c]">Impulsores Clave de la Adopción</h2>
+        <p class="max-w-3xl mx-auto text-lg text-gray-600 mb-12 text-center">
+            Cuatro fuerzas principales están acelerando la transición hacia la Identidad Auto Soberana, cada una respondiendo a necesidades críticas del ecosistema digital actual.
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                 <h3 class="text-2xl font-bold text-center mb-4 text-[#003f5c]">Distribución de Impulsores del Mercado</h3>
+                 <p class="text-center text-gray-600 mb-4">La seguridad y el control del usuario son los catalizadores dominantes, reflejando una demanda global por mayor protección y autonomía sobre los datos personales.</p>
+                <div class="chart-container h-80">
+                    <canvas id="driversChart"></canvas>
+                </div>
+            </div>
+            <div class="space-y-6">
+                <div class="p-6 bg-white rounded-lg shadow-md border-l-4 border-[#bc5090]">
+                    <h4 class="text-xl font-bold text-[#bc5090]">🛡️ Seguridad y Lucha contra el Fraude</h4>
+                    <p class="text-gray-700 mt-2">La creciente preocupación por el robo de identidad y las filtraciones de datos masivas posiciona a la SSI como una solución de seguridad superior.</p>
+                </div>
+                <div class="p-6 bg-white rounded-lg shadow-md border-l-4 border-[#ef5675]">
+                    <h4 class="text-xl font-bold text-[#ef5675]">👤 Control del Usuario y Descentralización</h4>
+                    <p class="text-gray-700 mt-2">Existe una demanda fundamental por parte de los usuarios para poseer y gestionar su propia identidad digital sin intermediarios.</p>
+                </div>
+                <div class="p-6 bg-white rounded-lg shadow-md border-l-4 border-[#ff764a]">
+                    <h4 class="text-xl font-bold text-[#ff764a]">📜 Cumplimiento Normativo (GDPR, eIDAS)</h4>
+                    <p class="text-gray-700 mt-2">La SSI facilita el cumplimiento de regulaciones estrictas de protección de datos, convirtiendo la carga regulatoria en una ventaja estratégica.</p>
+                </div>
+                 <div class="p-6 bg-white rounded-lg shadow-md border-l-4 border-[#ffa600]">
+                    <h4 class="text-xl font-bold text-[#ffa600]">🌐 Evolución a Web3</h4>
+                    <p class="text-gray-700 mt-2">Como pilar de la Web3, la SSI es esencial para la creación de una internet descentralizada donde los usuarios controlan sus activos e identidades.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="telco-initiatives" class="mb-16">
+        <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-4 text-[#003f5c]">La Vanguardia de las Telecomunicaciones</h2>
+        <p class="max-w-3xl mx-auto text-lg text-gray-600 mb-12 text-center">
+            Las principales operadoras de telecomunicaciones no solo están observando, sino que están liderando activamente la carga, desarrollando proyectos piloto, productos y colaboraciones que definen el futuro de la identidad digital.
+        </p>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div class="bg-white rounded-lg shadow-lg p-6 md:col-span-1 lg:col-span-2">
+                <h3 class="text-2xl font-bold text-center mb-4 text-[#003f5c]">Nivel de Participación en Iniciativas SSI</h3>
+                <p class="text-center text-gray-600 mb-4">Este gráfico compara el grado y la naturaleza de la participación de las telcos líderes en el ecosistema SSI, destacando a los actores más comprometidos con el desarrollo y la implementación.</p>
+                <div class="chart-container h-96">
+                    <canvas id="telcoParticipationChart"></canvas>
+                </div>
+            </div>
+
+            <div class="telco-card bg-white rounded-lg shadow-lg p-6 border-t-4 border-[#7a5195]">
+                <h4 class="text-2xl font-bold mb-2 text-[#7a5195]">Deutsche Telekom</h4>
+                <p class="font-semibold text-gray-700 mb-4">Pionera en Ecosistemas Europeos</p>
+                <p class="text-gray-600">Lidera a través de T-Systems en **Gaia-X** y el consorcio **Potential** de la Cartera EUDI. Su enfoque es fundamental, proveyendo infraestructura de identidad para Europa y colaborando con NTT en el intercambio global de datos de confianza.</p>
+            </div>
+
+            <div class="telco-card bg-white rounded-lg shadow-lg p-6 border-t-4 border-[#bc5090]">
+                <h4 class="text-2xl font-bold mb-2 text-[#bc5090]">Telefónica</h4>
+                <p class="font-semibold text-gray-700 mb-4">Adopción Integral y Liderazgo</p>
+                <p class="text-gray-600">Impulsa activamente la SSI con su solución **VIDidentity** y la asociación con **Privado ID** para casos de uso con conocimiento cero. Participa en los consorcios EUDI y fomenta la innovación multisectorial con **Start4big**.</p>
+            </div>
+
+            <div class="telco-card bg-white rounded-lg shadow-lg p-6 border-t-4 border-[#ef5675]">
+                <h4 class="text-2xl font-bold mb-2 text-[#ef5675]">Vodafone</h4>
+                <p class="font-semibold text-gray-700 mb-4">Aprovechando las Capacidades de Red</p>
+                <p class="text-gray-600">Ofrece el **Vodafone Identity Hub**, que utiliza APIs y datos de red en tiempo real para la verificación de identidad y la prevención del fraude. Es un participante clave en el piloto **Potential** de la EUDI.</p>
+            </div>
+
+            <div class="telco-card bg-white rounded-lg shadow-lg p-6 border-t-4 border-[#ff764a]">
+                <h4 class="text-2xl font-bold mb-2 text-[#ff764a]">NTT</h4>
+                <p class="font-semibold text-gray-700 mb-4">Infraestructura para la Era 6G</p>
+                <p class="text-gray-600">Investiga y desarrolla infraestructura SSI como una tecnología elemental para las redes 6G/IOWN. Su enfoque está en la estandarización de credenciales verificables emitidas por operadores de red a nivel global.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="standards" class="mb-16">
+        <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-4 text-[#003f5c]">Pilares de la Estandarización y Colaboración</h2>
+        <p class="max-w-3xl mx-auto text-lg text-gray-600 mb-12 text-center">
+            La adopción masiva de SSI depende de la interoperabilidad. Organizaciones clave están creando los marcos y estándares necesarios para un ecosistema de identidad digital global y cohesionado.
+        </p>
+        <div class="bg-white rounded-lg shadow-lg p-8">
+            <div class="space-y-8">
+                <div class="text-center">
+                    <div class="inline-block flow-node font-bold py-3 px-6 rounded-lg text-lg">GSMA Open Gateway</div>
+                    <div class="flex justify-center"><div class="w-px h-8 bg-[#7a5195]"></div></div>
+                    <div class="text-2xl text-[#7a5195]">↓</div>
+                    <div class="inline-block flow-node py-3 px-6 rounded-lg">Define APIs de Red en <strong>CAMARA</strong> (SIM Swap, Verificación de Número)</div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+                    <div class="text-center">
+                        <div class="inline-block flow-node font-bold py-3 px-6 rounded-lg text-lg">Cartera EUDI</div>
+                        <div class="flex justify-center"><div class="w-px h-8 bg-[#7a5195]"></div></div>
+                        <div class="text-2xl text-[#7a5195]">↓</div>
+                        <div class="inline-block flow-node py-3 px-6 rounded-lg">Impulsa pilotos (<strong>Potential, EWC</strong>) con Telcos para estandarizar la identidad en la UE</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="inline-block flow-node font-bold py-3 px-6 rounded-lg text-lg">TM Forum</div>
+                        <div class="flex justify-center"><div class="w-px h-8 bg-[#7a5195]"></div></div>
+                        <div class="text-2xl text-[#7a5195]">↓</div>
+                         <div class="inline-block flow-node py-3 px-6 rounded-lg">Promueve la <strong>Arquitectura Digital Abierta (ODA)</strong> y APIs abiertas para la interoperabilidad</div>
+                    </div>
+                </div>
+                 <div class="text-center pt-4">
+                     <p class="text-lg font-semibold text-gray-700">Estas iniciativas convergen para crear un marco donde las soluciones de identidad pueden operar de forma segura y sin fisuras a través de diferentes redes y fronteras, sentando las bases para la adopción generalizada de SSI.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="outlook" class="mb-16">
+        <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-4 text-[#003f5c]">Perspectivas Estratégicas: Desafíos y Oportunidades</h2>
+         <p class="max-w-3xl mx-auto text-lg text-gray-600 mb-12 text-center">
+            La transición hacia la SSI presenta un panorama dual. Si bien existen obstáculos significativos en la adopción y regulación, las oportunidades para mejorar la seguridad, la experiencia del usuario y crear nuevos modelos de negocio son inmensas.
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <h3 class="text-2xl font-bold mb-4 text-green-600 flex items-center">
+                    <span class="text-3xl mr-3">✨</span> Oportunidades
+                </h3>
+                <ul class="space-y-4 text-gray-700">
+                    <li class="flex items-start"><span class="font-bold text-green-600 mr-2 mt-1">✓</span><div><strong>Reducción de Fraude:</strong> Mitigación efectiva de fraudes como el SIM-swap aprovechando datos de red.</div></li>
+                    <li class="flex items-start"><span class="font-bold text-green-600 mr-2 mt-1">✓</span><div><strong>Nuevos Modelos de Negocio:</strong> Servicios como "Verificación de Credenciales como Servicio" e Identidad para IoT.</div></li>
+                    <li class="flex items-start"><span class="font-bold text-green-600 mr-2 mt-1">✓</span><div><strong>Mejora de la Experiencia de Usuario:</strong> Procesos de autenticación y KYC simplificados y más seguros.</div></li>
+                     <li class="flex items-start"><span class="font-bold text-green-600 mr-2 mt-1">✓</span><div><strong>Cumplimiento Simplificado:</strong> Alineación nativa con regulaciones como GDPR y eIDAS.</div></li>
+                </ul>
+            </div>
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <h3 class="text-2xl font-bold mb-4 text-red-600 flex items-center">
+                   <span class="text-3xl mr-3">⚠️</span> Desafíos
+                </h3>
+                <ul class="space-y-4 text-gray-700">
+                    <li class="flex items-start"><span class="font-bold text-red-600 mr-2 mt-1">✗</span><div><strong>Adopción y Escala:</strong> La transición desde sistemas heredados es compleja y requiere una inversión significativa.</div></li>
+                    <li class="flex items-start"><span class="font-bold text-red-600 mr-2 mt-1">✗</span><div><strong>Estandarización e Interoperabilidad:</strong> Asegurar que las diversas soluciones de SSI puedan comunicarse entre sí sigue siendo un reto.</div></li>
+                    <li class="flex items-start"><span class="font-bold text-red-600 mr-2 mt-1">✗</span><div><strong>Claridad Regulatoria:</strong> Adaptar los marcos legales existentes a un paradigma descentralizado a nivel global.</div></li>
+                    <li class="flex items-start"><span class="font-bold text-red-600 mr-2 mt-1">✗</span><div><strong>Conciencia del Usuario:</strong> Educar al público general sobre los beneficios y el funcionamiento de la SSI es crucial.</div></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<footer class="bg-[#003f5c] text-white text-center p-4">
+    <p>Infografía basada en el informe de investigación "El Panorama Evolutivo de la Identidad Auto Soberana (SSI) en las Telecomunicaciones".</p>
+</footer>
+
+<script>
+    const wrapLabel = (label) => {
+        if (typeof label === 'string' && label.length > 16) {
+            const words = label.split(' ');
+            const lines = [];
+            let currentLine = '';
+            words.forEach(word => {
+                if ((currentLine + word).length > 16) {
+                    lines.push(currentLine.trim());
+                    currentLine = '';
+                }
+                currentLine += word + ' ';
+            });
+            lines.push(currentLine.trim());
+            return lines;
+        }
+        return label;
+    };
+    
+    const tooltipTitleCallback = (tooltipItems) => {
+        const item = tooltipItems[0];
+        let label = item.chart.data.labels[item.dataIndex];
+        if (Array.isArray(label)) {
+            return label.join(' ');
+        }
+        return label;
+    };
+
+    const sharedTooltipOptions = {
+        plugins: {
+            tooltip: {
+                callbacks: {
+                    title: tooltipTitleCallback
+                }
+            }
+        }
+    };
+
+    const brilliantBluesPalette = ['#003f5c', '#7a5195', '#ef5675', '#ffa600'];
+    const driversPalette = ['#bc5090', '#ef5675', '#ff764a', '#ffa600'];
+
+    const ctxGrowth = document.getElementById('marketGrowthChart').getContext('2d');
+    new Chart(ctxGrowth, {
+        type: 'line',
+        data: {
+            labels: ['2024', '2026', '2028', '2030', '2032', '2034'],
+            datasets: [{
+                label: 'Valor de Mercado (en Billones USD)',
+                data: [1.83, 15.5, 131.2, 550.0, 850.0, 1153.07],
+                backgroundColor: 'rgba(239, 86, 117, 0.2)',
+                borderColor: '#ef5675',
+                pointBackgroundColor: '#ef5675',
+                fill: true,
+                tension: 0.4
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    type: 'logarithmic',
+                    ticks: {
+                       callback: function(value, index, values) {
+                            if (value === 1000) return '$1T';
+                            if (value === 100) return '$100B';
+                            if (value === 10) return '$10B';
+                            if (value === 1) return '$1B';
+                            return null;
+                        }
+                    }
+                }
+            },
+             ...sharedTooltipOptions
+        }
+    });
+
+    const ctxDrivers = document.getElementById('driversChart').getContext('2d');
+    new Chart(ctxDrivers, {
+        type: 'doughnut',
+        data: {
+            labels: ['Seguridad y Fraude', ['Control del Usuario', '& Descentralización'], 'Cumplimiento Normativo', 'Evolución a Web3'],
+            datasets: [{
+                label: 'Impulsores del Mercado',
+                data: [40, 30, 15, 15],
+                backgroundColor: driversPalette,
+                borderColor: '#ffffff',
+                borderWidth: 2,
+                hoverOffset: 4
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                },
+                tooltip: {
+                    callbacks: {
+                        title: tooltipTitleCallback
+                    }
+                }
+            }
+        }
+    });
+    
+    const ctxTelco = document.getElementById('telcoParticipationChart').getContext('2d');
+    new Chart(ctxTelco, {
+        type: 'bar',
+        data: {
+            labels: ['Deutsche Telekom', 'Telefónica', 'Vodafone', 'NTT'],
+            datasets: [
+                {
+                    label: 'Desarrollo y Producto',
+                    data: [3, 3, 2, 2],
+                    backgroundColor: '#7a5195'
+                },
+                {
+                    label: 'Pilotaje y Colaboración',
+                    data: [3, 3, 3, 3],
+                    backgroundColor: '#bc5090'
+                },
+                {
+                    label: 'Investigación y Estándares',
+                    data: [3, 2, 2, 3],
+                    backgroundColor: '#ef5675'
+                },
+            ]
+        },
+        options: {
+            indexAxis: 'y',
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                x: {
+                    stacked: true,
+                },
+                y: {
+                    stacked: true
+                }
+            },
+             ...sharedTooltipOptions
+        }
+    });
+
+</script>
+</body>
+</html>
