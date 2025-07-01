@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infografía: Análisis Estratégico de Grants en Avalanche para Proyectos "tbox"</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .flow-arrow {
+            position: relative;
+            width: 100%;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .flow-arrow::after {
+            content: '▼';
+            font-size: 2rem;
+            color: #06B6D4;
+        }
+        .swot-card {
+            border-left-width: 4px;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+    
+    <div class="container mx-auto p-4 md:p-8">
+
+        <header class="text-center mb-16">
+            <h1 class="text-4xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-600 mb-4">Análisis Estratégico: Grants de Avalanche</h1>
+            <p class="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto">Visualizando la oportunidad para la cartera de proyectos "tbox" en el ecosistema de financiación de Avalanche.</p>
+        </header>
+
+        <main>
+            <section id="narrativas" class="mb-20">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-cyan-400 mb-2">Las Narrativas Estratégicas de Avalanche</h2>
+                    <p class="text-gray-400 max-w-2xl mx-auto">Avalanche no solo financia proyectos; invierte en verticales clave para dominar el ecosistema. Su capital se concentra en áreas que construyen el futuro de la red.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="bg-gray-800 p-6 rounded-lg shadow-lg text-center">
+                        <div class="text-5xl mb-4">🏦</div>
+                        <h3 class="text-xl font-bold text-white mb-2">Finanzas Institucionales y RWA</h3>
+                        <p class="text-gray-400">La narrativa dominante. Colaboraciones con gigantes como Citi y J.P. Morgan validan su enfoque en activos del mundo real y finanzas reguladas.</p>
+                    </div>
+                    <div class="bg-gray-800 p-6 rounded-lg shadow-lg text-center">
+                        <div class="text-5xl mb-4">🤖</div>
+                        <h3 class="text-xl font-bold text-white mb-2">Integración de Inteligencia Artificial (IA)</h3>
+                        <p class="text-gray-400">Una alta prioridad estratégica, impulsada por grants específicos y alianzas con líderes como NVIDIA para fusionar la IA con la infraestructura blockchain.</p>
+                    </div>
+                    <div class="bg-gray-800 p-6 rounded-lg shadow-lg text-center">
+                        <div class="text-5xl mb-4">🛠️</div>
+                        <h3 class="text-xl font-bold text-white mb-2">Infraestructura y Herramientas</h3>
+                        <p class="text-gray-400">Inversión en los "picos y palas" del ecosistema: herramientas e infraestructura que potencian a todos los demás desarrolladores en la red.</p>
+                    </div>
+                    <div class="bg-gray-800 p-6 rounded-lg shadow-lg text-center">
+                        <div class="text-5xl mb-4">🎮</div>
+                        <h3 class="text-xl font-bold text-white mb-2">DeFi y Gaming</h3>
+                        <p class="text-gray-400">Los pilares establecidos que continúan recibiendo un apoyo sustancial para impulsar la adopción masiva y la actividad on-chain.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="programas" class="mb-20">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-cyan-400 mb-2">El Embudo de Financiación de Avalanche</h2>
+                    <p class="text-gray-400 max-w-2xl mx-auto">Avalanche gestiona un embudo estratégico para atraer, incubar y escalar proyectos, manteniendo un control progresivo sobre la financiación.</p>
+                </div>
+                
+                <div class="w-full max-w-4xl mx-auto">
+                    <div class="bg-gray-800 p-6 rounded-lg shadow-lg text-center mb-4">
+                        <h3 class="text-xl font-bold text-white">PARTE SUPERIOR: Ideación y Comunidad</h3>
+                        <p class="text-gray-400 mt-2">Programas como <span class="font-semibold text-cyan-400">Codebase</span> y <span class="font-semibold text-cyan-400">Grants de Gitcoin</span> para atraer una base amplia de desarrolladores y validar ideas con respaldo comunitario.</p>
+                    </div>
+                    <div class="flow-arrow"></div>
+                    <div class="bg-gray-800 p-6 rounded-lg shadow-lg text-center mb-4">
+                        <h3 class="text-xl font-bold text-white">PARTE MEDIA: Incubación Estratégica</h3>
+                        <p class="text-gray-400 mt-2">Grants directos como <span class="font-semibold text-cyan-400">infraBUIDL()</span> y <span class="font-semibold text-cyan-400">Retro9000</span> para nutrir proyectos alineados con la visión de la Fundación, usando un filtro riguroso.</p>
+                    </div>
+                    <div class="flow-arrow"></div>
+                     <div class="bg-gray-800 p-6 rounded-lg shadow-lg text-center">
+                        <h3 class="text-xl font-bold text-white">PARTE INFERIOR: Escalado e Inversión</h3>
+                        <p class="text-gray-400 mt-2">Capital riesgo a través de <span class="font-semibold text-cyan-400">Blizzard Fund</span> y grandes programas como <span class="font-semibold text-cyan-400">Multiverse</span> para escalar proyectos con potencial de mercado masivo.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="analisis-tbox" class="mb-20">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-cyan-400 mb-2">Alineación Estratégica de Proyectos "tbox"</h2>
+                    <p class="text-gray-400 max-w-2xl mx-auto">Evaluación de cada proyecto de la cartera "tbox" según su alineación con las narrativas centrales de Avalanche. Una puntuación más alta indica un mayor ajuste estratégico.</p>
+                </div>
+
+                <div class="bg-gray-800 p-4 md:p-6 rounded-lg shadow-lg">
+                     <div class="chart-container h-[500px] max-h-[600px] md:h-[500px] md:max-h-[600px]">
+                        <canvas id="tboxAlignmentChart"></canvas>
+                    </div>
+                </div>
+                <div class="mt-8 text-center text-gray-400">
+                    <p>La gráfica de barras muestra claramente que la <span class="font-semibold text-cyan-300">Suite de Identidad Descentralizada</span>, <span class="font-semibold text-cyan-300">tbox-minds (IA)</span> y <span class="font-semibold text-cyan-300">tbox-regula (RWA)</span> son los candidatos con mayor potencial de financiación debido a su alineación directa con las prioridades de infraestructuras críticas de la Fundación.</p>
+                </div>
+            </section>
+            
+            <section id="recomendacion" class="mb-20">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-cyan-400 mb-2">Recomendación Final: La Elección Definitiva</h2>
+                    <p class="text-gray-400 max-w-2xl mx-auto">Tras el análisis, un candidato emerge como la opción más estratégica y de mayor impacto para el ecosistema Avalanche.</p>
+                </div>
+
+                <div class="bg-gradient-to-br from-cyan-500 to-blue-700 p-8 rounded-lg shadow-2xl text-center">
+                    <h3 class="text-2xl md:text-4xl font-black text-white mb-4">🏆 Suite de Identidad Descentralizada "tbox"</h3>
+                    <p class="text-lg text-blue-100 max-w-3xl mx-auto">
+                        Este proyecto no es solo una aplicación; es la **infraestructura fundacional** que habilita toda la visión institucional de Avalanche. Resuelve el problema crítico de la identidad y el cumplimiento, actuando como un **multiplicador de fuerza** para todo el ecosistema.
+                    </p>
+                </div>
+            </section>
+
+            <section id="swot" class="mb-20">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-cyan-400 mb-2">Análisis FODA del Candidato Principal</h2>
+                    <p class="text-gray-400 max-w-2xl mx-auto">Un análisis detallado de la Suite de Identidad "tbox" desde la perspectiva de un revisor de grants de Avalanche.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-gray-800 p-6 rounded-lg shadow-lg swot-card border-green-400">
+                        <h3 class="text-2xl font-bold text-green-400 mb-3">Fortalezas</h3>
+                        <ul class="list-disc list-inside text-gray-300 space-y-2">
+                            <li><strong>Importancia Crítica:</strong> Es la llave para la narrativa de finanzas institucionales.</li>
+                            <li><strong>Solución a un Problema Real:</strong> Resuelve la verificación de contrapartes en DeFi.</li>
+                            <li><strong>Visión de Futuro:</strong> El cumplimiento proactivo con eIDAS 2.0 es un diferenciador masivo.</li>
+                            <li><strong>Efecto de Red:</strong> Potencial para convertirse en el estándar de identidad de Avalanche.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-gray-800 p-6 rounded-lg shadow-lg swot-card border-red-400">
+                        <h3 class="text-2xl font-bold text-red-400 mb-3">Debilidades</h3>
+                        <ul class="list-disc list-inside text-gray-300 space-y-2">
+                            <li><strong>Alta Complejidad Técnica:</strong> Requiere experiencia demostrable en criptografía y DID.</li>
+                            <li><strong>Poco Atractivo Viral:</strong> Su valor es estratégico y de infraestructura, no para el gran público.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-gray-800 p-6 rounded-lg shadow-lg swot-card border-blue-400">
+                        <h3 class="text-2xl font-bold text-blue-400 mb-3">Oportunidades</h3>
+                        <ul class="list-disc list-inside text-gray-300 space-y-2">
+                            <li><strong>Estándar del Ecosistema:</strong> Convertirse en la pila de identidad recomendada por la Fundación.</li>
+                            <li><strong>Nuevos Casos de Uso:</strong> Habilita votaciones, KYC para dApps, y más.</li>
+                             <li><strong>Monetización a Largo Plazo:</strong> Potencial para un modelo de "Identidad como Servicio".</li>
+                        </ul>
+                    </div>
+                    <div class="bg-gray-800 p-6 rounded-lg shadow-lg swot-card border-yellow-400">
+                        <h3 class="text-2xl font-bold text-yellow-400 mb-3">Amenazas</h3>
+                        <ul class="list-disc list-inside text-gray-300 space-y-2">
+                            <li><strong>Competencia Existente:</strong> Soluciones como Privado ID ya tienen tracción en el mercado.</li>
+                            <li><strong>Adopción Lenta:</strong> El éxito depende de que otros proyectos integren la solución.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="roadmap">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-cyan-400 mb-2">Hoja de Ruta Estratégica para la Solicitud</h2>
+                    <p class="text-gray-400 max-w-2xl mx-auto">Un plan de acción claro para maximizar las probabilidades de éxito en la obtención del grant.</p>
+                </div>
+                
+                <div class="space-y-8">
+                    <div class="bg-gray-800 p-6 rounded-lg shadow-lg flex items-start space-x-6">
+                        <div class="text-3xl font-black text-cyan-400">1</div>
+                        <div>
+                            <h3 class="text-xl font-bold text-white">Apuntar al Programa `infraBUIDL()`</h3>
+                            <p class="text-gray-400 mt-1">Es el canal perfecto para infraestructura crítica, evaluado por el equipo estratégico de la Fundación, no por un voto de popularidad.</p>
+                        </div>
+                    </div>
+                     <div class="bg-gray-800 p-6 rounded-lg shadow-lg flex items-start space-x-6">
+                        <div class="text-3xl font-black text-cyan-400">2</div>
+                        <div>
+                            <h3 class="text-xl font-bold text-white">Unificar la Propuesta</h3>
+                            <p class="text-gray-400 mt-1">Presentar los proyectos como una solución cohesiva: la <span class="font-semibold">"Pila de Confianza e Identidad Institucional tbox para Avalanche"</span>.</p>
+                        </div>
+                    </div>
+                    <div class="bg-gray-800 p-6 rounded-lg shadow-lg flex items-start space-x-6">
+                        <div class="text-3xl font-black text-cyan-400">3</div>
+                        <div>
+                            <h3 class="text-xl font-bold text-white">Definir Hitos Rigurosos</h3>
+                            <p class="text-gray-400 mt-1">Establecer KPIs claros y medibles para cada fase del desarrollo, desde el lanzamiento del SDK de código abierto hasta la incorporación de proyectos piloto.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="text-center mt-20 pt-8 border-t border-gray-700">
+            <p class="text-gray-500">Infografía generada basada en el "Análisis Estratégico del Ecosistema de Grants de Avalanche".</p>
+            <p class="text-xs text-gray-600 mt-2">CONFIRMACIÓN: Ni Mermaid JS ni gráficos SVG han sido utilizados en la generación de este documento. Todos los gráficos son renderizados en Canvas y los diagramas están construidos con HTML/CSS.</p>
+        </footer>
+    </div>
+
+<script>
+    function wrapLabels(label, maxWidth) {
+        const words = label.split(' ');
+        let lines = [];
+        let currentLine = words[0];
+
+        for (let i = 1; i < words.length; i++) {
+            if (currentLine.length + words[i].length + 1 < maxWidth) {
+                currentLine += ' ' + words[i];
+            } else {
+                lines.push(currentLine);
+                currentLine = words[i];
+            }
+        }
+        lines.push(currentLine);
+        return lines;
+    }
+    
+    const tooltipTitleCallback = (tooltipItems) => {
+        const item = tooltipItems[0];
+        let label = item.chart.data.labels[item.dataIndex];
+        if (Array.isArray(label)) {
+            return label.join(' ');
+        } else {
+            return label;
+        }
+    };
+
+    const projectData = {
+        labels: [
+            'Suite Identidad (ssi, login, protocols)',
+            'tbox-minds (Plataforma IA)',
+            'tbox-regula (RWA Regulado)',
+            'tbox-magicpr (Resumen IA de PRs)',
+            'tbox-tokenhealth (Validación IA)',
+            'tbox-tokenova (Tokenización no regulada)',
+            'tbox-srmas (Investigación Académica)',
+            'Quakid (Cripto Cuántica)'
+        ],
+        scores: [10, 9, 8, 6, 5, 3, 1, 1]
+    };
+
+    const processedLabels = projectData.labels.map(label => {
+        if (label.length > 16) {
+            return wrapLabels(label, 16);
+        }
+        return label;
+    });
+
+    const ctx = document.getElementById('tboxAlignmentChart').getContext('2d');
+    const tboxAlignmentChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: processedLabels,
+            datasets: [{
+                label: 'Puntuación de Alineación Estratégica (de 10)',
+                data: projectData.scores,
+                backgroundColor: [
+                    '#06B6D4', // Brilliant Blue
+                    '#0891B2',
+                    '#0E7490',
+                    '#164E63',
+                    '#155E75',
+                    '#67E8F9',
+                    '#A5F3FC',
+                    '#CFFAFE'
+                ],
+                borderColor: '#0284C7',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            indexAxis: 'y',
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                x: {
+                    beginAtZero: true,
+                    max: 10,
+                    grid: {
+                        color: 'rgba(255, 255, 255, 0.1)'
+                    },
+                    ticks: {
+                        color: '#9CA3AF'
+                    }
+                },
+                y: {
+                    grid: {
+                        color: 'rgba(255, 255, 255, 0.05)'
+                    },
+                    ticks: {
+                        color: '#D1D5DB',
+                        font: {
+                            size: 12
+                        }
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false
+                },
+                title: {
+                    display: true,
+                    text: 'Puntuación de Alineación de Proyectos "tbox"',
+                    color: '#F9FAFB',
+                    font: {
+                        size: 18,
+                        weight: 'bold'
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        title: tooltipTitleCallback
+                    }
+                }
+            }
+        }
+    });
+</script>
+
+</body>
+</html>
+
