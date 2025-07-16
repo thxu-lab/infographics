@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infografía: Integración de SSI con Wallets Móviles</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .chart-container {
+            position: relative;
+            margin: auto;
+            height: 320px;
+            width: 100%;
+            max-width: 600px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .flow-arrow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0.5rem 0;
+        }
+        .flow-arrow::after {
+            content: '▼';
+            font-size: 1.5rem;
+            color: #D8315B;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -10px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: #3E92CC;
+            border: 4px solid #F4F4F9;
+        }
+        .timeline-line {
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background-color: #3E92CC;
+            transform: translateX(-9px);
+        }
+    </style>
+</head>
+<body class="bg-[#F4F4F9] text-[#0A2463]">
+
+    <div class="container mx-auto p-4 md:p-8">
+
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-bold text-[#0A2463] mb-2">Puentes hacia el Futuro de la Identidad</h1>
+            <p class="text-lg md:text-xl text-[#3E92CC]">Integrando la Identidad Auto-Soberana (SSI) de QuarkID con las Wallets de Apple y Android</p>
+        </header>
+
+        <section class="mb-16">
+            <div class="bg-white rounded-lg shadow-md p-6 md:p-8">
+                <h2 class="text-3xl font-bold text-center mb-6">La Revolución de la Identidad: El Triángulo de Confianza</h2>
+                <p class="max-w-3xl mx-auto text-center mb-8">La Identidad Auto-Soberana (SSI) redefine el control, devolviéndolo al usuario. Este modelo se basa en un "triángulo de confianza" donde las interacciones son directas y seguras, sin intermediarios centralizados. QuarkID implementa esta visión para crear una identidad digital verdaderamente personal y portátil.</p>
+                <div class="max-w-2xl mx-auto">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-center text-center">
+                        <div class="bg-[#F4F4F9] p-4 rounded-lg shadow">
+                            <h3 class="font-bold text-lg">🏛️ Emisor</h3>
+                            <p class="text-sm">Emite la credencial (ej. Gobierno, Universidad)</p>
+                        </div>
+                        <div class="hidden md:block flow-arrow flow-arrow-horizontal" style="grid-column: 2; transform: rotate(-45deg); margin-top: -50px;"></div>
+                        <div class="block md:hidden flow-arrow"></div>
+                        <div></div>
+                        <div class="block md:hidden flow-arrow"></div>
+                        <div class="bg-[#F4F4F9] p-4 rounded-lg shadow">
+                            <h3 class="font-bold text-lg">👤 Portador (Usted)</h3>
+                            <p class="text-sm">Controla y presenta sus credenciales desde su wallet</p>
+                        </div>
+                        <div class="hidden md:block flow-arrow flow-arrow-horizontal" style="grid-column: 2; transform: rotate(45deg); margin-top: 50px;"></div>
+                        <div></div>
+                        <div class="block md:hidden flow-arrow"></div>
+                        <div class="bg-[#F4F4F9] p-4 rounded-lg shadow">
+                            <h3 class="font-bold text-lg">✅ Verificador</h3>
+                            <p class="text-sm">Verifica la credencial (ej. Aerolínea, Tienda)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold text-center mb-8">Un Cuento de Dos Ecosistemas</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white rounded-lg shadow-md p-6 md:p-8">
+                    <h3 class="text-2xl font-bold text-center mb-4">Apple: El Jardín Amurallado 🏰</h3>
+                    <p class="text-center mb-6">El ecosistema de Apple es cerrado y altamente controlado. La integración requiere aprobación explícita, adhesión a estándares estrictos (ISO 18013-5) y el uso de APIs propietarias, creando una barrera de entrada significativa.</p>
+                    <div class="chart-container">
+                        <canvas id="appleChart"></canvas>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow-md p-6 md:p-8">
+                    <h3 class="text-2xl font-bold text-center mb-4">Android: El Patio de Juegos Abierto 🎡</h3>
+                    <p class="text-center mb-6">Android ofrece un enfoque más abierto y flexible. Se basa en estándares públicos (OIDC4VP) y permite que múltiples wallets compitan, reduciendo las barreras para plataformas SSI como QuarkID.</p>
+                    <div class="chart-container">
+                        <canvas id="androidChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="mb-16">
+             <h2 class="text-3xl font-bold text-center mb-8">Vías Estratégicas de Integración</h2>
+             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white rounded-lg shadow-md p-6 md:p-8">
+                    <h3 class="text-2xl font-bold text-center mb-6">Navegando el Ecosistema iOS</h3>
+                    <p class="text-center mb-6">En iOS, la estrategia debe ser dual: una solución alternativa a corto plazo usando pases genéricos y un esfuerzo a largo plazo para la integración nativa con credenciales gubernamentales.</p>
+                    <div class="space-y-4">
+                        <div class="text-center bg-[#F4F4F9] p-4 rounded-lg">
+                            <h4 class="font-bold">Emisión de Credencial QuarkID</h4>
+                            <p class="text-sm">Para cualquier tipo de credencial.</p>
+                        </div>
+                        <div class="flow-arrow"></div>
+                        <div class="text-center bg-[#D8315B] text-white p-4 rounded-lg">
+                            <h4 class="font-bold">Estrategia 1: "Caballo de Troya" (Corto Plazo)</h4>
+                            <p class="text-sm">Generar un pase `.pkpass` con un código QR que inicia la verificación SSI fuera de banda. Rápido y accesible.</p>
+                        </div>
+                        <div class="flow-arrow"></div>
+                        <div class="text-center bg-[#3E92CC] text-white p-4 rounded-lg">
+                             <h4 class="font-bold">Estrategia 2: Nativa (Largo Plazo)</h4>
+                             <p class="text-sm">Para IDs gubernamentales. Cumplir con ISO `mdoc`, solicitar `entitlement` a Apple. Alto esfuerzo, alta recompensa.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow-md p-6 md:p-8">
+                    <h3 class="text-2xl font-bold text-center mb-6">Abrazando el Ecosistema Android</h3>
+                    <p class="text-center mb-6">En Android, el camino es directo. La clave es la compatibilidad total con los estándares abiertos que Google promueve, permitiendo a QuarkID ser un actor de primera clase.</p>
+                     <div class="space-y-4">
+                        <div class="text-center bg-[#F4F4F9] p-4 rounded-lg">
+                            <h4 class="font-bold">Emisión de Credencial QuarkID</h4>
+                            <p class="text-sm">Compatible con W3C VC.</p>
+                        </div>
+                        <div class="flow-arrow"></div>
+                        <div class="text-center bg-[#3E92CC] text-white p-4 rounded-lg">
+                            <h4 class="font-bold">Cumplimiento de Estándares</h4>
+                            <p class="text-sm">Implementar OIDC4VP para presentación y OIDC4VCI para emisión.</p>
+                        </div>
+                        <div class="flow-arrow"></div>
+                        <div class="text-center bg-[#0A2463] text-white p-4 rounded-lg">
+                             <h4 class="font-bold">Integración Nativa a Través del Credential Manager</h4>
+                             <p class="text-sm">La wallet de QuarkID aparece como una opción nativa para el usuario final.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-16">
+            <div class="bg-white rounded-lg shadow-md p-6 md:p-8">
+                <h2 class="text-3xl font-bold text-center mb-6">El Protocolo Universal: OIDC4VCI</h2>
+                <p class="max-w-3xl mx-auto text-center mb-8">Mientras que la presentación de credenciales varía, la emisión puede estandarizarse. OpenID for Verifiable Credential Issuance (OIDC4VCI) es la inversión más estratégica, creando un servicio de emisión único que funciona para Android, la solución de iOS y futuras wallets.</p>
+                <div class="chart-container mx-auto" style="height: 300px; max-width: 300px;">
+                    <canvas id="oidcChart"></canvas>
+                </div>
+                 <p class="max-w-3xl mx-auto text-center mt-6 text-sm">Este estándar actúa como un "adaptador universal", garantizando que las credenciales de QuarkID lleguen a cualquier wallet compatible de manera fluida y predecible.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="text-3xl font-bold text-center mb-8">Hoja de Ruta Hacia la Interoperabilidad Total</h2>
+            <div class="relative max-w-4xl mx-auto pl-8 py-4">
+                <div class="timeline-line"></div>
+                <div class="relative pl-8 py-6 mb-8 timeline-item">
+                    <h3 class="text-xl font-bold text-[#D8315B]">Fase 1 (6-9 Meses): Fundación y Piloto</h3>
+                    <p>El objetivo es establecer una base sólida en el ecosistema más abierto.</p>
+                    <ul class="list-disc list-inside mt-2">
+                        <li><strong class="text-[#3E92CC]">Android:</strong> Construir un servicio de emisión OIDC4VCI y lanzar un piloto con un socio clave.</li>
+                        <li><strong class="text-[#0A2463]">iOS:</strong> Analizar y diseñar la solución alternativa basada en `.pkpass`.</li>
+                    </ul>
+                </div>
+                <div class="relative pl-8 py-6 mb-8 timeline-item">
+                    <h3 class="text-xl font-bold text-[#D8315B]">Fase 2 (9-18 Meses): Expansión y Estandarización</h3>
+                    <p>Aprovechar el éxito inicial para expandirse a iOS y consolidar el liderazgo técnico.</p>
+                     <ul class="list-disc list-inside mt-2">
+                        <li><strong class="text-[#3E92CC]">Android:</strong> Expandir el ecosistema de emisores y mejorar el Mobile Agent.</li>
+                        <li><strong class="text-[#0A2463]">iOS:</strong> Lanzar la solución `.pkpass` y enviar la solicitud de `entitlement` a Apple.</li>
+                    </ul>
+                </div>
+                <div class="relative pl-8 py-6 timeline-item">
+                    <h3 class="text-xl font-bold text-[#D8315B]">Fase 3 (18+ Meses): Interoperabilidad Total</h3>
+                    <p>Lograr una presencia significativa en ambas plataformas y simplificar la adopción para los desarrolladores.</p>
+                     <ul class="list-disc list-inside mt-2">
+                        <li><strong class="text-[#3E92CC]">Android:</strong> Fomentar la adopción masiva con SDKs simplificados.</li>
+                        <li><strong class="text-[#0A2463]">iOS:</strong> Lanzar la primera app con integración nativa "Verify with Wallet" tras la aprobación.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        const brilliantBlues = {
+            darkBlue: '#0A2463',
+            brightBlue: '#3E92CC',
+            pink: '#D8315B',
+            lightGray: '#F4F4F9',
+            white: '#FFFFFF'
+        };
+
+        function wrapText(text, maxLength) {
+            if (text.length <= maxLength) {
+                return text;
+            }
+            const words = text.split(' ');
+            const lines = [];
+            let currentLine = '';
+            for (const word of words) {
+                if ((currentLine + ' ' + word).trim().length > maxLength) {
+                    lines.push(currentLine.trim());
+                    currentLine = word;
+                } else {
+                    currentLine = (currentLine + ' ' + word).trim();
+                }
+            }
+            if (currentLine) {
+                lines.push(currentLine.trim());
+            }
+            return lines;
+        }
+
+        const tooltipTitleCallback = (tooltipItems) => {
+            const item = tooltipItems[0];
+            let label = item.chart.data.labels[item.dataIndex];
+            if (Array.isArray(label)) {
+                return label.join(' ');
+            }
+            return label;
+        };
+        
+        const commonChartOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    callbacks: {
+                        title: tooltipTitleCallback
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        color: brilliantBlues.darkBlue
+                    },
+                    grid: {
+                        color: '#e0e0e0'
+                    }
+                },
+                x: {
+                    ticks: {
+                        color: brilliantBlues.darkBlue
+                    },
+                    grid: {
+                        display: false
+                    }
+                }
+            }
+        };
+
+        const appleChartCtx = document.getElementById('appleChart').getContext('2d');
+        new Chart(appleChartCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Complejidad Técnica', 'Coste', 'Restricción', 'Tiempo de Aprobación'].map(l => wrapText(l, 16)),
+                datasets: [{
+                    label: 'Nivel de Desafío',
+                    data: [90, 80, 95, 85],
+                    backgroundColor: [brilliantBlues.darkBlue, brilliantBlues.darkBlue, brilliantBlues.darkBlue, brilliantBlues.darkBlue],
+                    borderColor: brilliantBlues.darkBlue,
+                    borderWidth: 1
+                }]
+            },
+            options: commonChartOptions
+        });
+
+        const androidChartCtx = document.getElementById('androidChart').getContext('2d');
+        new Chart(androidChartCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Complejidad Técnica', 'Coste', 'Restricción', 'Tiempo de Aprobación'].map(l => wrapText(l, 16)),
+                datasets: [{
+                    label: 'Nivel de Desafío',
+                    data: [40, 30, 20, 10],
+                    backgroundColor: [brilliantBlues.brightBlue, brilliantBlues.brightBlue, brilliantBlues.brightBlue, brilliantBlues.brightBlue],
+                    borderColor: brilliantBlues.brightBlue,
+                    borderWidth: 1
+                }]
+            },
+            options: commonChartOptions
+        });
+        
+        const oidcChartCtx = document.getElementById('oidcChart').getContext('2d');
+        new Chart(oidcChartCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Emisión (OIDC4VCI)', 'Presentación', 'Otros'],
+                datasets: [{
+                    label: 'Foco Estratégico',
+                    data: [65, 25, 10],
+                    backgroundColor: [
+                        brilliantBlues.pink,
+                        brilliantBlues.brightBlue,
+                        brilliantBlues.lightGray
+                    ],
+                    borderColor: brilliantBlues.white,
+                    borderWidth: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            color: brilliantBlues.darkBlue
+                        }
+                    },
+                    tooltip: {
+                       callbacks: {
+                           title: tooltipTitleCallback
+                       }
+                    },
+                    title: {
+                        display: true,
+                        text: 'Prioridad de Desarrollo de Protocolos',
+                        color: brilliantBlues.darkBlue,
+                        font: {
+                            size: 16
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
+
