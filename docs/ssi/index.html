@@ -72,26 +72,39 @@
             <div class="bg-white rounded-lg shadow-md p-6 md:p-8">
                 <h2 class="text-3xl font-bold text-center mb-6">La Revolución de la Identidad: El Triángulo de Confianza</h2>
                 <p class="max-w-3xl mx-auto text-center mb-8">La Identidad Auto-Soberana (SSI) redefine el control, devolviéndolo al usuario. Este modelo se basa en un "triángulo de confianza" donde las interacciones son directas y seguras, sin intermediarios centralizados. QuarkID implementa esta visión para crear una identidad digital verdaderamente personal y portátil.</p>
-                <div class="max-w-2xl mx-auto">
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-center text-center">
-                        <div class="bg-[#F4F4F9] p-4 rounded-lg shadow">
+                <div class="max-w-3xl mx-auto">
+                    <!-- Mobile Layout -->
+                    <div class="space-y-4 md:hidden">
+                        <div class="bg-[#F4F4F9] p-4 rounded-lg shadow text-center">
                             <h3 class="font-bold text-lg">🏛️ Emisor</h3>
                             <p class="text-sm">Emite la credencial (ej. Gobierno, Universidad)</p>
                         </div>
-                        <div class="hidden md:block flow-arrow flow-arrow-horizontal" style="grid-column: 2; transform: rotate(-45deg); margin-top: -50px;"></div>
-                        <div class="block md:hidden flow-arrow"></div>
-                        <div></div>
-                        <div class="block md:hidden flow-arrow"></div>
-                        <div class="bg-[#F4F4F9] p-4 rounded-lg shadow">
+                        <div class="flow-arrow"></div>
+                        <div class="bg-[#F4F4F9] p-4 rounded-lg shadow text-center">
                             <h3 class="font-bold text-lg">👤 Portador (Usted)</h3>
                             <p class="text-sm">Controla y presenta sus credenciales desde su wallet</p>
                         </div>
-                        <div class="hidden md:block flow-arrow flow-arrow-horizontal" style="grid-column: 2; transform: rotate(45deg); margin-top: 50px;"></div>
-                        <div></div>
-                        <div class="block md:hidden flow-arrow"></div>
-                        <div class="bg-[#F4F4F9] p-4 rounded-lg shadow">
+                        <div class="flow-arrow"></div>
+                        <div class="bg-[#F4F4F9] p-4 rounded-lg shadow text-center">
                             <h3 class="font-bold text-lg">✅ Verificador</h3>
                             <p class="text-sm">Verifica la credencial (ej. Aerolínea, Tienda)</p>
+                        </div>
+                    </div>
+                    <!-- Desktop Layout -->
+                    <div class="hidden md:grid grid-cols-3 grid-rows-2 gap-x-8 items-center text-center" style="min-height: 200px;">
+                        <div class="col-start-2 p-4 bg-[#F4F4F9] rounded-lg shadow">
+                             <h3 class="font-bold text-lg">🏛️ Emisor</h3>
+                        </div>
+                        <div class="row-start-2 p-4 bg-[#F4F4F9] rounded-lg shadow h-full flex flex-col justify-center">
+                            <h3 class="font-bold text-lg">👤 Portador (Usted)</h3>
+                        </div>
+                        <div class="row-start-2 col-start-2 flex items-center justify-between h-full text-2xl text-[#D8315B] px-4">
+                            <span>⤵</span>
+                            <span class="text-gray-400 text-base">↔</span>
+                            <span>⤵</span>
+                        </div>
+                        <div class="row-start-2 col-start-3 p-4 bg-[#F4F4F9] rounded-lg shadow h-full flex flex-col justify-center">
+                            <h3 class="font-bold text-lg">✅ Verificador</h3>
                         </div>
                     </div>
                 </div>
@@ -358,4 +371,3 @@
     </script>
 </body>
 </html>
-
