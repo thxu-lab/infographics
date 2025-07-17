@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ecosistema de Modelos de Lenguaje</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+        :root {
+            --bg-color: #f4f7f9;
+            --card-bg-color: #ffffff;
+            --primary-text-color: #2c3e50;
+            --secondary-text-color: #576574;
+            --accent-color: #3498db;
+            --border-color: #e1e5e8;
+            --shadow-color: rgba(0, 0, 0, 0.08);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--primary-text-color);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.7;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: var(--card-bg-color);
+            border-radius: 12px;
+            box-shadow: 0 8px 32px var(--shadow-color);
+            overflow: hidden;
+        }
+
+        header {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 30px 40px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: 700;
+        }
+
+        header .intro {
+            margin: 10px 0 0;
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        main {
+            padding: 20px 40px;
+        }
+
+        section {
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        h2 {
+            font-size: 2em;
+            color: var(--accent-color);
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+        }
+        
+        h2 .icon {
+            margin-right: 15px;
+            font-size: 1.2em;
+        }
+
+        h3 {
+            font-size: 1.3em;
+            color: var(--primary-text-color);
+            margin-top: 25px;
+            margin-bottom: 10px;
+            border-left: 4px solid var(--accent-color);
+            padding-left: 10px;
+            font-weight: 600;
+        }
+
+        p, ul, ol {
+            color: var(--secondary-text-color);
+            font-size: 1em;
+        }
+
+        ul, ol {
+            padding-left: 25px;
+        }
+        
+        li {
+            margin-bottom: 10px;
+        }
+
+        strong, b {
+            color: var(--primary-text-color);
+            font-weight: 600;
+        }
+
+        code {
+            background-color: #e8f4fd;
+            color: var(--accent-color);
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: 600;
+        }
+
+        .glossary dl {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .glossary dt {
+            font-weight: 600;
+            color: var(--primary-text-color);
+        }
+
+        .glossary dd {
+            margin-left: 0;
+            color: var(--secondary-text-color);
+            padding-bottom: 10px;
+            border-bottom: 1px dashed var(--border-color);
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            main {
+                padding: 15px 25px;
+            }
+            header {
+                padding: 25px;
+            }
+            h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Ecosistema de Modelos de Lenguaje</h1>
+            <p class="intro">Una guía para entender los conceptos fundamentales que hacen funcionar a los modelos de lenguaje modernos.</p>
+        </header>
+        
+        <main>
+            <section id="embeddings">
+                <h2><span class="icon">🧬</span>Embeddings: Representando el Significado</h2>
+                <p>Un <strong>embedding</strong> es una representación vectorial (una lista de números) que captura el significado semántico de datos como palabras, frases o imágenes. Esto permite que las máquinas entiendan las relaciones y similitudes entre conceptos.</p>
+                
+                <h3>Tipos de Embeddings</h3>
+                <ul>
+                    <li><strong>Estáticos:</strong> Vectores fijos y precalculados como <code>Word2Vec</code> o <code>GloVe</code>. No cambian según el contexto de la frase.</li>
+                    <li><strong>Contextuales:</strong> Vectores dinámicos generados por modelos como <code>BERT</code> o <code>GPT</code>. Varían según las palabras que los rodean para capturar matices.</li>
+                </ul>
+
+                <h3>Propiedades Clave</h3>
+                <ul>
+                    <li><strong>Dimensionalidad:</strong> El tamaño del vector (p. ej., 300, 768). Un mayor número puede capturar más información, pero a un mayor costo computacional.</li>
+                    <li><strong>Métricas de Similitud:</strong> Se usan operaciones matemáticas como la 📐 <strong>Similitud del Coseno</strong> o la 📏 <strong>Distancia Euclidiana</strong> para medir qué tan parecidos son dos vectores.</li>
+                </ul>
+
+                <h3>Casos de Uso Principales</h3>
+                <ul>
+                    <li><strong>Búsqueda semántica:</strong> Encontrar resultados que significan lo mismo, no solo que contienen las mismas palabras clave.</li>
+                    <li><strong>Sistemas de recomendación:</strong> Sugerir productos o contenidos similares.</li>
+                    <li><strong>Aumento de contexto en LLMs (RAG):</strong> Encontrar información relevante para que el modelo la use en sus respuestas.</li>
+                    <li><strong>Almacenamiento:</strong> Se guardan y consultan eficientemente en <strong>Bases de Datos Vectoriales</strong> (p. ej. <code>Pinecone</code>, <code>Milvus</code>) usando algoritmos <strong>ANN</strong>.</li>
+                </ul>
+            </section>
+            
+            <section id="fine-tuning">
+                <h2><span class="icon">🛠️</span>Fine-Tuning: Especializando el Modelo</h2>
+                <p>El <strong>fine-tuning</strong> es el proceso de re-entrenar un modelo preexistente con un conjunto de datos más pequeño y específico para adaptarlo a una tarea o dominio particular.</p>
+
+                <h3>Enfoques Principales</h3>
+                <ul>
+                    <li><strong>Full Fine-Tuning:</strong> Se actualizan <em>todos</em> los parámetros del modelo. Máxima adaptabilidad, pero requiere muchos recursos computacionales.</li>
+                    <li><strong>PEFT (Parameter-Efficient Fine-Tuning):</strong> Solo se ajusta un pequeño subconjunto de parámetros (p. ej., <code>LoRA</code>). Mucho más eficiente en costo y almacenamiento.</li>
+                </ul>
+                
+                <h3>Proceso de Fine-Tuning</h3>
+                <ol>
+                    <li><strong>Selección de Datos:</strong> Recopilar un dataset limpio y representativo de la tarea.</li>
+                    <li><strong>Configuración:</strong> Definir hiperparámetros como la tasa de aprendizaje y el número de épocas.</li>
+                    <li><strong>Entrenamiento:</strong> Ajustar los pesos del modelo para minimizar el error.</li>
+                    <li><strong>Evaluación:</strong> Medir el rendimiento con métricas como precisión o F1.</li>
+                    <li><strong>Despliegue:</strong> Integrar el modelo afinado en un sistema de producción.</li>
+                </ol>
+
+                <h3>⚠️ Consideraciones Prácticas</h3>
+                <p>Hay que vigilar el <strong>Overfitting</strong> (el modelo memoriza los datos pero no generaliza) y el <strong>Catastrophic Forgetting</strong> (el modelo olvida su conocimiento general).</p>
+            </section>
+            
+            <section id="tokenizacion">
+                <h2><span class="icon">🧩</span>Tokens y Tokenización: Las Piezas del Lenguaje</h2>
+                <p>La <strong>tokenización</strong> es el proceso de dividir el texto en las unidades mínimas que un modelo puede procesar, llamadas <strong>tokens</strong>. Un token puede ser una palabra, parte de una palabra o un caracter.</p>
+                
+                <h3>Algoritmos Comunes</h3>
+                <ul>
+                    <li><strong>Word-Level:</strong> Cada palabra es un token. Genera vocabularios muy grandes.</li>
+                    <li><strong>Subword (BPE, WordPiece):</strong> El más común. Divide las palabras en sub-unidades frecuentes. Balancea el tamaño del vocabulario y maneja palabras desconocidas.</li>
+                    <li><strong>Character-Level:</strong> Cada caracter es un token. Vocabulario muy pequeño, pero secuencias muy largas.</li>
+                </ul>
+                
+                <h3>Impacto en el Modelo</h3>
+                <p>La tokenización afecta la <strong>longitud máxima de la secuencia</strong> que el modelo puede procesar, el <strong>costo computacional</strong> (más tokens = más cómputo) y la <strong>calidad de la representación</strong>.</p>
+            </section>
+            
+            <section id="inferencia-despliegue">
+                <h2><span class="icon">🚀</span>Inferencia y Despliegue: Del Laboratorio a la Realidad</h2>
+                <p>La <strong>inferencia</strong> es el uso de un modelo ya entrenado para hacer predicciones. El <strong>despliegue</strong> es el proceso de hacer que ese modelo esté disponible para los usuarios en un entorno real.</p>
+                
+                <h3>Técnicas de Optimización</h3>
+                <ul>
+                    <li><strong>Quantization:</strong> Reducir la precisión de los números del modelo (p. ej., de 32 a 8 bits) para acelerar los cálculos.</li>
+                    <li><strong>Pruning:</strong> Eliminar conexiones neuronales irrelevantes del modelo para hacerlo más ligero.</li>
+                    <li><strong>Knowledge Distillation:</strong> Entrenar un modelo pequeño ("estudiante") para que imite a uno grande ("profesor").</li>
+                </ul>
+
+                <h3>Infraestructura Clave</h3>
+                <p>El despliegue moderno se apoya en <strong>Contenedores</strong> (<code>Docker</code>, <code>Kubernetes</code>) para escalar, <strong>Servidores de Modelos</strong> (<code>Triton</code>, <code>TorchServe</code>) para entregar predicciones eficientemente, y plataformas para <strong>Edge Deployment</strong> (<code>TensorFlow Lite</code>) para ejecutar modelos en dispositivos locales.</p>
+            </section>
+            
+            <section id="glosario" class="glossary">
+                <h2><span class="icon">📚</span>Glosario Rápido: Términos Esenciales</h2>
+                <dl>
+                    <dt>Adam</dt>
+                    <dd>Optimizador que combina Momentum y RMSProp. Es el más utilizado.</dd>
+                    
+                    <dt>Dropout</dt>
+                    <dd>Técnica de regularización que "apaga" neuronas al azar para evitar el overfitting.</dd>
+                    
+                    <dt>Epoch</dt>
+                    <dd>Una pasada completa del algoritmo de entrenamiento sobre todo el conjunto de datos.</dd>
+
+                    <dt>Kubernetes</dt>
+                    <dd>Sistema de orquestación de contenedores para desplegar y escalar aplicaciones.</dd>
+                    
+                    <dt>Learning Rate</dt>
+                    <dd>Parámetro que controla cuánto se ajustan los pesos del modelo durante el entrenamiento.</dd>
+
+                    <dt>Pruning</dt>
+                    <dd>Eliminación de pesos menos relevantes para simplificar el modelo y acelerar la inferencia.</dd>
+
+                    <dt>Quantization</dt>
+                    <dd>Técnica para reducir la precisión numérica de los pesos, acelerando la inferencia.</dd>
+                    
+                    <dt>SGD</dt>
+                    <dd>Stochastic Gradient Descent; algoritmo de optimización fundamental.</dd>
+
+                    <dt>Weight Decay</dt>
+                    <dd>Técnica de regularización (L2) que penaliza los pesos grandes para prevenir el overfitting.</dd>
+                </dl>
+            </section>
+        </main>
+    </div>
+
+</body>
+</html>
