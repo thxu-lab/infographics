@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reporte Detallado: Métodos de Identificadores Descentralizados (DID)</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        h1, h2, h3, h4 {
+            color: #1a237e;
+            line-height: 1.3;
+        }
+        h1 {
+            border-bottom: 2px solid #3f51b5;
+            padding-bottom: 10px;
+        }
+        h2 {
+            border-bottom: 1px solid #c5cae9;
+            padding-bottom: 8px;
+            margin-top: 40px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            box-shadow: 0 2px 3px rgba(0,0,0,0.05);
+        }
+        th, td {
+            border: 1px solid #e0e0e0;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        th {
+            background-color: #e8eaf6;
+            font-weight: bold;
+            color: #1a237e;
+        }
+        tbody tr:nth-of-type(odd) {
+            background-color: #fcfcfc;
+        }
+        blockquote {
+            background-color: #f1f8e9;
+            border-left: 5px solid #7cb342;
+            margin: 20px 0;
+            padding: 15px 20px;
+            font-style: italic;
+        }
+        hr {
+            border: 0;
+            height: 1px;
+            background: #e0e0e0;
+            margin: 40px 0;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Reporte Detallado: Métodos de Identificadores Descentralizados (DID) en Ecosistemas de Identidad Auto-Soberana (SSI)</h1>
+
+        <h2>1. Introducción a los DIDs y la SSI</h2>
+        <p>La <strong>Identidad Auto-Soberana (SSI)</strong> es un paradigma que otorga a los individuos y organizaciones el control total sobre sus identidades digitales. En lugar de depender de proveedores centralizados (como Google o gobiernos), la SSI permite a las entidades gestionar sus propios datos y decidir con quién los comparten.</p>
+        <p>El pilar fundamental de la SSI es el <strong>Identificador Descentralizado (DID)</strong>. Un DID es un nuevo tipo de identificador único y global que no requiere una autoridad central de registro. Funciona como una dirección que permite a cualquiera encontrar el "Documento DID" asociado a una entidad. Este documento contiene la información criptográfica (claves públicas) y los puntos de servicio (endpoints) necesarios para interactuar con dicha entidad de forma segura y verificable.</p>
+        <p>La elección del <strong>método DID</strong> (el sistema subyacente que define cómo se crean, gestionan y resuelven los DIDs) es una decisión crítica de arquitectura con profundas implicaciones en la seguridad, coste, privacidad y gobernanza de un ecosistema de identidad. A continuación, se analiza en detalle la comparativa entre los principales métodos.</p>
+
+        <hr>
+
+        <h2>2. DIDs Autoportables vs. DIDs Anclados en Blockchain</h2>
+        <p>Esta es la distinción más fundamental: DIDs diseñados para interacciones efímeras versus aquellos diseñados para una persistencia pública y auditable.</p>
+        
+        <h4>Análisis Detallado</h4>
+        <table>
+            <thead>
+                <tr>
+                    <th>Característica</th>
+                    <th>did:key / did:peer (Autoportables)</th>
+                    <th>DIDs en Blockchain (did:ethr, did:sov, etc.)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Persistencia</strong></td>
+                    <td><strong>Temporal y contextual.</strong> Estos DIDs existen solo mientras las partes que interactúan los conserven. Son perfectos para una conexión directa y privada (peer-to-peer).</td>
+                    <td><strong>Permanente e inmutable.</strong> Una vez anclado en una blockchain, el registro del DID es, en la práctica, imborrable. Esto crea un registro histórico auditable.</td>
+                </tr>
+                <tr>
+                    <td><strong>Resolución Global</strong></td>
+                    <td><strong>No.</strong> No pueden ser descubiertos o resueltos por terceros que no participen en la interacción directa. Su Documento DID se intercambia fuera de banda (ej. vía QR).</td>
+                    <td><strong>Sí.</strong> Cualquier persona con acceso a la red blockchain puede resolver el DID y obtener su Documento DID, permitiendo la verificación pública por parte de terceros.</td>
+                </tr>
+                <tr>
+                    <td><strong>Costo de Emisión</strong></td>
+                    <td><strong>Nulo.</strong> La creación es un proceso criptográfico local que no requiere interacción con una red externa ni pago de tasas.</td>
+                    <td><strong>Variable.</strong> Implica una transacción en la blockchain, lo que puede suponer un coste en forma de <strong>gas</strong> (en redes como Ethereum) o <strong>fees</strong> de la red.</td>
+                </tr>
+                <tr>
+                    <td><strong>Rotación de Claves</strong></td>
+                    <td><strong>No soportada de forma nativa.</strong> Si una clave se ve comprometida, se debe crear un nuevo DID y establecer una nueva relación.</td>
+                    <td><strong>Soportada y transparente.</strong> El método permite actualizar el Documento DID para "rotar" (cambiar) las claves asociadas, manteniendo el mismo identificador. El historial de cambios queda registrado.</td>
+                </tr>
+                <tr>
+                    <td><strong>Revocación</strong></td>
+                    <td><strong>No aplicable.</strong> La relación simplemente se abandona o termina. No hay un estado público que revocar.</td>
+                    <td><strong>Soportada.</strong> Es posible revocar el DID o credenciales asociadas a él de forma pública, notificando a todos los participantes del ecosistema que ya no es válido.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h4>Casos de Uso y Recomendaciones</h4>
+        <ul>
+            <li><strong>Usa <code>did:key</code> o <code>did:peer</code> para:</strong>
+                <ul>
+                    <li><strong>Conexiones de agentes:</strong> Cuando dos billeteras digitales (agentes) necesitan establecer un canal de comunicación seguro y privado.</li>
+                    <li><strong>Pruebas de concepto y desarrollo:</strong> Su nulo coste y simplicidad los hacen ideales para entornos de prueba.</li>
+                    <li><strong>Interacciones de baja confianza:</strong> Donde no se requiere una identidad persistente a largo plazo.</li>
+                </ul>
+            </li>
+            <li><strong>Usa DIDs anclados en Blockchain cuando necesitas:</strong>
+                <ul>
+                    <li><strong>Identidades públicas:</strong> Para entidades como gobiernos, universidades o empresas que necesitan ser descubiertas y verificadas globalmente.</li>
+                    <li><strong>Alta trazabilidad y auditabilidad:</strong> En industrias reguladas como las finanzas (KYC) o la sanidad, donde el historial de la identidad es crucial.</li>
+                    <li><strong>Verificación a largo plazo:</strong> Para emitir credenciales (como títulos universitarios o licencias profesionales) que deben ser válidas y verificables durante años.</li>
+                </ul>
+            </li>
+        </ul>
+
+        <hr>
+
+        <h2>3. <code>did:web</code> vs. DIDs en Blockchain (desde la perspectiva del Emisor)</h2>
+        <p>Para una organización que desea emitir credenciales verificables, la elección se centra a menudo entre aprovechar su infraestructura web existente (<code>did:web</code>) o adoptar una solución basada en blockchain.</p>
+        
+        <h4>Análisis Detallado</h4>
+        <table>
+            <thead>
+                <tr>
+                    <th>Característica</th>
+                    <th>did:web</th>
+                    <th>DIDs en Blockchain</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Resolución</strong></td>
+                    <td>Se basa en <strong>HTTPS y DNS</strong>. El DID <code>did:web:example.com</code> se resuelve accediendo a un archivo JSON en <code>https://example.com/.well-known/did.json</code>.</td>
+                    <td>La resolución se realiza consultando directamente la red blockchain, un proceso nativo del ecosistema descentralizado.</td>
+                </tr>
+                <tr>
+                    <td><strong>Control del DID</strong></td>
+                    <td>El control recae en el <strong>dueño del dominio web</strong>. La seguridad del DID es tan fuerte como la seguridad del servidor web y del DNS.</td>
+                    <td>El control recae en el <strong>dueño de la clave privada</strong> que gestiona el DID. La seguridad depende de la custodia segura de esa clave.</td>
+                </tr>
+                <tr>
+                    <td><strong>Inmutabilidad</strong></td>
+                    <td><strong>No garantizada.</strong> El administrador del sitio web puede modificar o eliminar el archivo <code>did.json</code> en cualquier momento sin dejar rastro público.</td>
+                    <td><strong>Garantizada por la blockchain.</strong> Cualquier cambio (como la rotación de claves) es una nueva transacción que se añade al historial, proporcionando una auditoría completa.</td>
+                </tr>
+                <tr>
+                    <td><strong>Privacidad</strong></td>
+                    <td><strong>Alta.</strong> Las interacciones no se registran en un libro mayor público. Solo el emisor y el receptor conocen la transacción (a menos que se publique).</td>
+                    <td><strong>Media a baja.</strong> Aunque los DIDs son seudónimos, los metadatos de las transacciones en una blockchain pública pueden ser analizados para correlacionar actividades.</td>
+                </tr>
+                <tr>
+                    <td><strong>Revocación</strong></td>
+                    <td><strong>Manual.</strong> Requiere editar el archivo <code>did.json</code> o utilizar un mecanismo como las <em>Status List 2021</em>. Es menos transparente que en blockchain.</td>
+                    <td><strong>Nativa y transparente.</strong> La revocación se registra en la blockchain y es verificable por cualquier participante de forma inmediata.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h4>Recomendaciones</h4>
+        <ul>
+            <li><strong><code>did:web</code> es ideal para:</strong>
+                <ul>
+                    <li><strong>Empresas, ONGs e instituciones con una sólida presencia web.</strong> Permite empezar a emitir credenciales verificables con una baja barrera de entrada y coste, aprovechando activos ya existentes (el dominio).</li>
+                    <li>Casos de uso donde no se requiere una inmutabilidad estricta y se prefiere mayor privacidad.</li>
+                </ul>
+            </li>
+            <li><strong>DIDs en Blockchain son recomendables para:</strong>
+                <ul>
+                    <li><strong>Identidades de alta confianza y soberanía:</strong> Gobiernos, bancos centrales, o redes donde la auditabilidad y la resistencia a la censura son primordiales.</li>
+                    <li>Ecosistemas que requieren un "ancla de confianza" neutral y compartida entre múltiples organizaciones que no confían plenamente entre sí.</li>
+                </ul>
+            </li>
+        </ul>
+
+        <hr>
+        
+        <h2>4. <code>did:web</code> vs. Trust Registry: Una Relación Complementaria</h2>
+        <p>Es un error común comparar <code>did:web</code> y un <strong>Trust Registry</strong> como si fueran alternativas. En realidad, cumplen funciones diferentes que se potencian mutuamente.</p>
+        
+        <h4>Análisis Conceptual</h4>
+        <table>
+            <thead>
+                <tr>
+                    <th>Aspecto</th>
+                    <th>did:web</th>
+                    <th>Trust Registry (Registro de Confianza)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>¿Qué es?</strong></td>
+                    <td>Un <strong>método DID</strong> técnico para crear y resolver un identificador usando un dominio web. Responde a la pregunta: <em>¿Cuáles son las claves de esta entidad?</em></td>
+                    <td>Una <strong>capa de gobernanza.</strong> Es un listado curado (en una base de datos, API o blockchain) de DIDs que han sido vetados o acreditados como confiables según ciertas reglas. Responde a la pregunta: <em>¿Debo confiar en este emisor y para qué?</em></td>
+                </tr>
+                <tr>
+                    <td><strong>Verificabilidad</strong></td>
+                    <td>Cualquiera puede verificar criptográficamente que el dueño del dominio autorizó el Documento DID.</td>
+                    <td>La confianza se deriva de la autoridad y las políticas del registro. Verifica que un DID ha sido aprobado por la entidad que gobierna el registro.</td>
+                </tr>
+                <tr>
+                    <td><strong>Atributos y Roles</strong></td>
+                    <td>El Documento DID no incluye de forma nativa información sobre el "rol" o la "autoridad" del emisor.</td>
+                    <td><strong>Su función principal.</strong> Un Trust Registry puede especificar que <code>did:web:universidad.edu</code> está autorizado para emitir "Títulos Universitarios", pero no "Licencias de Conducir".</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h4>Analogía Expandida</h4>
+        <blockquote>
+            <ul>
+                <li><strong><code>did:web</code>:</strong> Es como si una empresa (<strong>"ACME Corp"</strong>) publicara en su sitio web oficial un documento firmado que dice: "Esta es nuestra firma oficial para documentos digitales". <em>Tú sabes que la firma es de ACME porque está en su web oficial.</em></li>
+                <li><strong>Trust Registry:</strong> Es como si la <strong>Cámara de Comercio</strong> publicara un listado que dice: "Hemos verificado que 'ACME Corp' (cuyo DID es <code>did:web:acme.com</code>) es una empresa legítima y está autorizada para emitir facturas". <em>Ahora no solo sabes que la firma es de ACME, sino que una tercera entidad de confianza (la Cámara de Comercio) avala su legitimidad para una función específica.</em></li>
+            </ul>
+        </blockquote>
+
+        <h4>Recomendación Estratégica</h4>
+        <p>La mejor práctica es <strong>usar ambos en conjunto.</strong></p>
+        <ol>
+            <li>Una institución <strong>publica su <code>did:web</code></strong>, aprovechando la simplicidad y el bajo coste.</li>
+            <li>Luego, <strong>registra ese <code>did:web</code> en uno o varios Trust Registries</strong> relevantes para su sector.</li>
+        </ol>
+        <p>Este enfoque híbrido ofrece lo mejor de ambos mundos: la simplicidad y el control de <code>did:web</code> combinados con la validación externa y la gobernanza explícita de un Trust Registry.</p>
+        
+        <hr>
+
+        <h2>5. Conclusión: Hacia un Enfoque Pragmático</h2>
+        <p>No existe un "mejor método DID" universal. La elección correcta es siempre contextual y depende de un análisis de las necesidades específicas del caso de uso.</p>
+        <ul>
+            <li>Para interacciones <strong>privadas y efímeras</strong>, <code>did:peer</code> es la opción más eficiente.</li>
+            <li>Para <strong>entidades con presencia web</strong> que buscan una entrada sencilla al mundo SSI, <code>did:web</code> es la puerta de acceso ideal.</li>
+            <li>Para ecosistemas que requieren <strong>máxima seguridad, auditabilidad y una base de confianza neutral</strong>, los DIDs anclados en <strong>blockchain</strong> son indispensables.</li>
+            <li>Para cualquier ecosistema serio, un <strong>Trust Registry</strong> no es una alternativa, sino una capa de gobernanza necesaria para definir qué DIDs son confiables y para qué.</li>
+        </ul>
+        <p>La madurez de un ecosistema SSI se manifiesta en su capacidad para combinar estos métodos de manera inteligente, creando un equilibrio óptimo entre usabilidad para el usuario final, interoperabilidad entre organizaciones y la confianza robusta que la identidad digital moderna exige.</p>
+    </div>
+
+</body>
+</html>
