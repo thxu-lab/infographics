@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infografía: La Arquitectura de la Inteligencia Colectiva</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F0F4F8; 
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .flowchart-node {
+            border: 2px solid #2C8DFF;
+            background-color: #ffffff;
+            color: #00449E;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            text-align: center;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        .flowchart-connector {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 4rem;
+            font-size: 2rem;
+            color: #2C8DFF;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 1.5rem;
+            height: 1.5rem;
+            border-radius: 9999px;
+            background-color: #2C8DFF;
+            border: 4px solid #89C6FF;
+        }
+        .timeline-line {
+            position: absolute;
+            left: -2rem;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background-color: #89C6FF;
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <div class="container mx-auto p-4 md:p-8 max-w-7xl">
+
+        <header class="text-center my-12">
+            <h1 class="text-4xl md:text-6xl font-black text-[#00449E] leading-tight">La Arquitectura de la Inteligencia Colectiva</h1>
+            <p class="mt-4 text-lg md:text-xl text-[#0157C8] max-w-3xl mx-auto">Un análisis visual de los protocolos que definen el futuro de la colaboración entre agentes de IA.</p>
+        </header>
+
+        <section id="evolution" class="my-16">
+            <div class="bg-white rounded-lg shadow-md p-6 md:p-8">
+                <h2 class="text-3xl font-bold text-center text-[#00449E] mb-8">La Evolución de la Comunicación Agéntica</h2>
+                <p class="text-center text-gray-600 mb-12 max-w-4xl mx-auto">La comunicación entre agentes ha evolucionado desde estándares académicos rígidos hacia protocolos flexibles y pragmáticos, inspirados en la web moderna. Este cambio ha sido fundamental para habilitar la colaboración en la era de los LLMs.</p>
+                <div class="relative pl-10">
+                    <div class="timeline-line"></div>
+                    <div class="space-y-12">
+                        <div class="relative timeline-item">
+                            <h3 class="text-2xl font-bold text-[#0157C8]">1996: FIPA-ACL - La Era Semántica</h3>
+                            <p class="text-gray-600 mt-2">Nace la <span class="font-semibold">Foundation for Intelligent Physical Agents (FIPA)</span>. Su protocolo ACL se basa en la Teoría de los Actos de Habla y estados mentales (Creencias, Deseos, Intenciones). Requiere un profundo entendimiento ontológico común, lo que lo hace rígido para entornos dinámicos.</p>
+                        </div>
+                        <div class="relative timeline-item">
+                            <h3 class="text-2xl font-bold text-[#0157C8]">2024: MCP - La Conexión con el Mundo</h3>
+                            <p class="text-gray-600 mt-2">Anthropic introduce el <span class="font-semibold">Model Context Protocol (MCP)</span>. Cambia el paradigma: en lugar de semántica, se enfoca en capacidades anunciadas. Actúa como un "USB-C para la IA", estandarizando cómo un agente se conecta con herramientas y datos externos.</p>
+                        </div>
+                        <div class="relative timeline-item">
+                            <h3 class="text-2xl font-bold text-[#0157C8]">2025: A2A y ACP - La Colaboración y Orquestación</h3>
+                            <p class="text-gray-600 mt-2">Google lanza el <span class="font-semibold">Agent2Agent Protocol (A2A)</span> y emerge el <span class="font-semibold">Agent Communication Protocol (ACP)</span>, ambos bajo la Linux Foundation. A2A se convierte en el "HTTP para agentes", estandarizando la comunicación social, mientras ACP se enfoca en la orquestación de flujos de trabajo complejos a nivel empresarial.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contenders" class="my-16">
+            <h2 class="text-3xl font-bold text-center text-[#00449E] mb-8">Los Protocolos Modernos: Un Vistazo</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white rounded-lg shadow-md p-6 text-center">
+                    <h3 class="text-2xl font-bold text-[#0157C8]">Model Context Protocol (MCP)</h3>
+                    <p class="mt-2 text-gray-600">El conector universal Agente-Entorno. Estandariza el acceso a herramientas y datos.</p>
+                    <div class="chart-container mt-4 mx-auto max-w-xs"><canvas id="mcpChart"></canvas></div>
+                    <p class="mt-4 text-sm text-gray-500">MCP se enfoca principalmente en la provisión de <span class="font-semibold">Herramientas</span> y <span class="font-semibold">Recursos</span>, con soporte para <span class="font-semibold">Prompts</span> guiados.</p>
+                </div>
+                <div class="bg-white rounded-lg shadow-md p-6 text-center">
+                    <h3 class="text-2xl font-bold text-[#0157C8]">Agent2Agent Protocol (A2A)</h3>
+                    <p class="mt-2 text-gray-600">La "lingua franca" Agente-Agente. Permite el descubrimiento y la delegación de tareas.</p>
+                    <div class="chart-container mt-4 mx-auto max-w-xs"><canvas id="a2aChart"></canvas></div>
+                    <p class="mt-4 text-sm text-gray-500">A2A se centra en la <span class="font-semibold">Delegación de Tareas</span> y el <span class="font-semibold">Descubrimiento</span> de habilidades a través de la 'Agent Card'.</p>
+                </div>
+                <div class="bg-white rounded-lg shadow-md p-6 text-center">
+                    <h3 class="text-2xl font-bold text-[#0157C8]">Agent Comm. Protocol (ACP)</h3>
+                    <p class="mt-2 text-gray-600">El director de orquesta. Gestiona flujos de trabajo complejos y de larga duración.</p>
+                    <div class="chart-container mt-4 mx-auto max-w-xs"><canvas id="acpChart"></canvas></div>
+                     <p class="mt-4 text-sm text-gray-500">ACP se especializa en la <span class="font-semibold">Orquestación de Flujos</span> y la <span class="font-semibold">Gestión de Estado</span> a nivel empresarial.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="comparison" class="my-16">
+            <div class="bg-white rounded-lg shadow-md p-6 md:p-8">
+                <h2 class="text-3xl font-bold text-center text-[#00449E] mb-8">Comparativa de Capacidades</h2>
+                <p class="text-center text-gray-600 mb-12 max-w-4xl mx-auto">Aunque complementarios, los protocolos modernos presentan diferencias clave en su enfoque y capacidades. Este gráfico de radar ilustra sus fortalezas relativas en dimensiones críticas para la implementación empresarial.</p>
+                <div class="chart-container max-w-2xl"><canvas id="radarChart"></canvas></div>
+            </div>
+        </section>
+
+        <section id="stack" class="my-16">
+            <div class="bg-white rounded-lg shadow-md p-6 md:p-8">
+                <h2 class="text-3xl font-bold text-center text-[#00449E] mb-8">La Pila de Protocolos en Acción</h2>
+                <p class="text-center text-gray-600 mb-12 max-w-4xl mx-auto">Estos protocolos no son competidores, sino capas de una arquitectura cohesiva. Juntos, permiten la creación de sistemas de IA robustos y escalables. A continuación se muestra cómo interactúan en un flujo de trabajo típico.</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-5 gap-8 items-start">
+                    <div class="md:col-span-2">
+                        <h3 class="text-2xl font-bold text-[#0157C8] mb-4">La Arquitectura por Capas</h3>
+                        <div class="space-y-4">
+                            <div class="flowchart-node">
+                                <h4 class="font-bold">Capa de Orquestación</h4>
+                                <p class="text-sm">Gestiona el flujo de trabajo completo.</p>
+                                <p class="font-bold text-lg mt-2">ACP</p>
+                            </div>
+                            <div class="flowchart-connector">↓</div>
+                            <div class="flowchart-node">
+                                <h4 class="font-bold">Capa Social (Agente-Agente)</h4>
+                                <p class="text-sm">Coordina la colaboración y delegación.</p>
+                                <p class="font-bold text-lg mt-2">A2A</p>
+                            </div>
+                            <div class="flowchart-connector">↓</div>
+                            <div class="flowchart-node">
+                                <h4 class="font-bold">Capa de Entorno (Agente-Mundo)</h4>
+                                <p class="text-sm">Proporciona acceso a herramientas y datos.</p>
+                                <p class="font-bold text-lg mt-2">MCP</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="md:col-span-3">
+                        <h3 class="text-2xl font-bold text-[#0157C8] mb-4">Ejemplo: Planificación de Viaje de Negocios</h3>
+                         <div class="border-l-4 border-[#60AFFF] pl-4 space-y-4">
+                            <div class="bg-blue-50 p-4 rounded-r-lg">
+                                <p><span class="font-bold text-[#00449E]">1. [Usuario → ACP]:</span> Un empleado solicita: "Reserva un viaje a Denver para una conferencia". El agente orquestador (ACP) inicia el flujo de trabajo.</p>
+                            </div>
+                            <div class="bg-blue-50 p-4 rounded-r-lg">
+                                <p><span class="font-bold text-[#00449E]">2. [ACP → A2A → Agente de Vuelos]:</span> El orquestador delega la búsqueda de vuelos. Usa A2A para encontrar y contactar a un agente especialista en vuelos.</p>
+                            </div>
+                            <div class="bg-blue-50 p-4 rounded-r-lg">
+                                <p><span class="font-bold text-[#00449E]">3. [Agente de Vuelos → MCP → API Aerolínea]:</span> El agente de vuelos usa MCP para invocar una herramienta que consulta la API de una aerolínea en tiempo real.</p>
+                            </div>
+                            <div class="bg-blue-50 p-4 rounded-r-lg">
+                                <p><span class="font-bold text-[#00449E]">4. [MCP → A2A → ACP]:</span> Los resultados del vuelo regresan por la misma cadena (MCP → Agente → A2A → Orquestador).</p>
+                            </div>
+                             <div class="bg-blue-50 p-4 rounded-r-lg">
+                                <p><span class="font-bold text-[#00449E]">5. [ACP repite para Hotel/Conferencia]:</span> El orquestador (ACP) continúa el flujo, delegando las reservas de hotel y registro a otros agentes especialistas vía A2A, quienes usan sus propias herramientas vía MCP.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="governance" class="my-16">
+            <div class="bg-white rounded-lg shadow-md p-6 md:p-8">
+                <h2 class="text-3xl font-bold text-center text-[#00449E] mb-8">Gobernanza y Adopción en la Industria</h2>
+                <p class="text-center text-gray-600 mb-12 max-w-4xl mx-auto">La gobernanza de un protocolo es un factor estratégico clave para su adopción. Los estándares alojados en fundaciones neutrales como la Linux Foundation tienden a fomentar una mayor confianza y colaboración en la industria, acelerando su camino hacia la ubicuidad.</p>
+                <div class="chart-container max-w-3xl"><canvas id="governanceChart"></canvas></div>
+            </div>
+        </section>
+
+        <footer class="text-center my-12 text-gray-500">
+            <p>Esta infografía se basa en un análisis exhaustivo de los protocolos de comunicación para agentes de IA.</p>
+            <p class="text-sm mt-2">Diseño y visualización por Gemini. Ni Mermaid JS ni SVG fueron utilizados en la creación de este artefacto.</p>
+            <!-- Palette: Brilliant Blues -->
+            <!-- Narrative Plan: Introduction -> Evolution Timeline -> Protocol Overview (Donuts) -> Comparative Analysis (Radar) -> Synergy & Workflow (Flowchart) -> Governance (Bar Chart) -> Conclusion -->
+            <!-- Visualization Choices: 
+                 - Timeline: Goal:Change, Method:HTML/CSS, Justification:Simple, effective for chronological data without graphics. NO SVG.
+                 - Protocol Focus: Goal:Compare, Library:Chart.js (Donut), Justification:Shows simple composition of focus areas. Canvas rendering.
+                 - Comparison: Goal:Compare, Library:Chart.js (Radar), Justification:Excellent for comparing multiple entities across multiple axes. Canvas rendering.
+                 - Protocol Stack: Goal:Organize, Method:HTML/CSS, Justification:Clear structural representation for hierarchical concepts. NO SVG/Mermaid.
+                 - Workflow: Goal:Organize, Method:HTML/CSS, Justification:Step-by-step process flow is clear and easy to follow. NO SVG/Mermaid.
+                 - Governance: Goal:Compare, Library:Chart.js (Bar), Justification:Direct comparison of categorical data. Canvas rendering.
+            -->
+        </footer>
+    </div>
+
+    <script>
+        const wrapLabel = (label, maxWidth = 16) => {
+            if (label.length <= maxWidth) {
+                return label;
+            }
+            const words = label.split(' ');
+            const lines = [];
+            let currentLine = '';
+            for (const word of words) {
+                if ((currentLine + word).length > maxWidth) {
+                    lines.push(currentLine.trim());
+                    currentLine = '';
+                }
+                currentLine += word + ' ';
+            }
+            lines.push(currentLine.trim());
+            return lines.filter(line => line.length > 0);
+        };
+
+        const tooltipTitleCallback = (tooltipItems) => {
+            const item = tooltipItems[0];
+            let label = item.chart.data.labels[item.dataIndex];
+            if (Array.isArray(label)) {
+                return label.join(' ');
+            }
+            return label;
+        };
+        
+        const commonChartOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    labels: {
+                        color: '#0157C8',
+                        font: {
+                            size: 14,
+                            family: 'Inter'
+                        }
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        title: tooltipTitleCallback
+                    }
+                }
+            }
+        };
+        
+        const palette = {
+            blue1: '#00449E',
+            blue2: '#0157C8',
+            blue3: '#2C8DFF',
+            blue4: '#60AFFF',
+            blue5: '#89C6FF',
+            gray: '#6B7280'
+        };
+
+        const createDonutChart = (ctx, labels, data) => {
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Foco del Protocolo',
+                        data: data,
+                        backgroundColor: [palette.blue3, palette.blue4, palette.blue5],
+                        borderColor: '#ffffff',
+                        borderWidth: 4,
+                    }]
+                },
+                options: { ...commonChartOptions }
+            });
+        };
+
+        const mcpCtx = document.getElementById('mcpChart').getContext('2d');
+        createDonutChart(mcpCtx, ['Herramientas', 'Recursos', 'Prompts'], [50, 40, 10]);
+
+        const a2aCtx = document.getElementById('a2aChart').getContext('2d');
+        createDonutChart(a2aCtx, ['Delegación de Tareas', 'Descubrimiento', 'Gestión de Estado'], [60, 30, 10]);
+
+        const acpCtx = document.getElementById('acpChart').getContext('2d');
+        createDonutChart(acpCtx, ['Orquestación', 'Gestión de Estado', 'Auditabilidad'], [55, 35, 10]);
+
+        const radarCtx = document.getElementById('radarChart').getContext('2d');
+        new Chart(radarCtx, {
+            type: 'radar',
+            data: {
+                labels: ['Flexibilidad', 'Escalabilidad', 'Seguridad Empresarial', 'Gobernanza Abierta', 'Facilidad de Adopción', 'Gestión de Estado'],
+                datasets: [{
+                    label: 'MCP',
+                    data: [8, 7, 5, 4, 9, 3],
+                    fill: true,
+                    backgroundColor: 'rgba(44, 141, 255, 0.2)',
+                    borderColor: palette.blue3,
+                    pointBackgroundColor: palette.blue3,
+                }, {
+                    label: 'A2A',
+                    data: [9, 8, 8, 9, 7, 6],
+                    fill: true,
+                    backgroundColor: 'rgba(0, 68, 158, 0.2)',
+                    borderColor: palette.blue1,
+                    pointBackgroundColor: palette.blue1,
+                }, {
+                    label: 'ACP',
+                    data: [6, 9, 9, 9, 5, 9],
+                    fill: true,
+                    backgroundColor: 'rgba(137, 198, 255, 0.2)',
+                    borderColor: palette.blue5,
+                    pointBackgroundColor: palette.blue5,
+                }]
+            },
+            options: {
+                ...commonChartOptions,
+                scales: {
+                    r: {
+                        angleLines: { color: 'rgba(1, 87, 200, 0.2)' },
+                        grid: { color: 'rgba(1, 87, 200, 0.2)' },
+                        pointLabels: { 
+                            color: palette.blue2,
+                            font: { size: 14, weight: 'bold' }
+                        },
+                        ticks: {
+                            color: palette.gray,
+                            backdropColor: 'rgba(255, 255, 255, 0.75)',
+                            stepSize: 2
+                        }
+                    }
+                }
+            }
+        });
+
+        const governanceCtx = document.getElementById('governanceChart').getContext('2d');
+        new Chart(governanceCtx, {
+            type: 'bar',
+            data: {
+                labels: ['A2A Protocol', 'ACP (Agent Communication Protocol)', 'MCP (Model Context Protocol)'],
+                datasets: [{
+                    label: 'Potencial de Adopción en la Industria',
+                    data: [9, 8.5, 6],
+                    backgroundColor: [palette.blue2, palette.blue3, palette.blue4],
+                    borderColor: [palette.blue1, palette.blue2, palette.blue3],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                ...commonChartOptions,
+                indexAxis: 'y',
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        max: 10,
+                        grid: {
+                            color: 'rgba(1, 87, 200, 0.1)'
+                        },
+                        ticks: { color: palette.gray }
+                    },
+                    y: {
+                        grid: {
+                           display: false
+                        },
+                        ticks: { 
+                            color: palette.blue1,
+                            font: { size: 14, weight: '600' },
+                            callback: function(value) {
+                                let label = this.getLabelForValue(value);
+                                return wrapLabel(label, 25);
+                            }
+                        }
+                    }
+                },
+                plugins: {
+                   legend: { display: false },
+                   tooltip: {
+                       callbacks: {
+                           title: tooltipTitleCallback
+                       }
+                   }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
+
