@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informe Técnico de la Red IOTA</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 450px;
+        }
+        .tangle-node {
+            width: 80px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.5rem;
+            font-size: 0.75rem;
+            font-weight: bold;
+            color: white;
+            position: relative;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        .tangle-line {
+            position: absolute;
+            background-color: #94d2bd;
+            height: 2px;
+            transform-origin: left;
+        }
+        .kpi-card {
+            background-color: white;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .kpi-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+    </style>
+</head>
+<body class="text-[#001219]">
+
+    <header class="bg-[#005f73] text-white p-6 shadow-lg">
+        <div class="container mx-auto text-center">
+            <h1 class="text-4xl md:text-5xl font-black">IOTA: La Próxima Generación de DLT</h1>
+            <p class="mt-2 text-lg md:text-xl text-[#e9d8a6]">Un análisis profundo de la tecnología Tangle, el ecosistema en expansión y su hoja de ruta técnica.</p>
+        </div>
+    </header>
+
+    <main class="container mx-auto p-4 md:p-8">
+
+        <section id="introduction" class="text-center my-12">
+            <h2 class="text-3xl font-bold text-[#005f73] mb-4">Más Allá de Blockchain: La Economía de las Máquinas</h2>
+            <p class="max-w-3xl mx-auto text-lg text-gray-700">
+                IOTA es un protocolo de contabilidad distribuida (DLT) diseñado para el Internet de las Cosas (IoT). Su arquitectura única, el Tangle, permite transacciones seguras y sin comisiones entre dispositivos, sentando las bases para una verdadera economía de máquina a máquina.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-10">
+                <div class="kpi-card">
+                    <div class="text-6xl font-black text-[#ee9b00]">0</div>
+                    <div class="text-xl font-bold mt-2 text-[#005f73]">Comisiones por Transacción</div>
+                    <p class="mt-2 text-gray-600">Ideal para micropagos y transferencias de datos de alto volumen en el ecosistema IoT.</p>
+                </div>
+                <div class="kpi-card">
+                    <div class="text-6xl font-black text-[#ca6702]">1K+</div>
+                    <div class="text-xl font-bold mt-2 text-[#005f73]">Transacciones por Segundo</div>
+                    <p class="mt-2 text-gray-600">Escalabilidad masiva para soportar miles de millones de dispositivos conectados simultáneamente.</p>
+                </div>
+                <div class="kpi-card">
+                    <div class="text-6xl font-black text-[#bb3e03]">&lt;1Wh</div>
+                    <div class="text-xl font-bold mt-2 text-[#005f73]">Consumo Energético</div>
+                    <p class="mt-2 text-gray-600">Una solución sostenible y eficiente en comparación con las blockchains tradicionales.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="tangle" class="my-16">
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-3xl font-bold text-center text-[#005f73] mb-4">El Tangle: Una Estructura de Datos Revolucionaria</h2>
+                <p class="max-w-4xl mx-auto text-center text-lg text-gray-700 mb-8">
+                    A diferencia de las cadenas de bloques lineales, IOTA utiliza un Grafo Acíclico Dirigido (DAG), conocido como el Tangle. En esta estructura, cada nueva transacción debe validar dos transacciones anteriores. Este mecanismo crea un sistema auto-sostenible que se vuelve más rápido y seguro a medida que más usuarios participan.
+                </p>
+                <div class="relative h-80 w-full max-w-4xl mx-auto flex items-center justify-center p-4 overflow-hidden">
+                    <div id="tangle-viz" class="relative w-full h-full">
+                    </div>
+                </div>
+                <p class="text-center text-sm text-gray-500 mt-4">Visualización del flujo de validación en el Tangle: las nuevas transacciones (naranja) validan transacciones pasadas (azul).</p>
+            </div>
+        </section>
+
+        <section id="evolution" class="my-16">
+             <h2 class="text-3xl font-bold text-center text-[#005f73] mb-8">La Evolución hacia la Descentralización Total: IOTA 2.0</h2>
+             <p class="max-w-4xl mx-auto text-center text-lg text-gray-700 mb-8">
+                El protocolo está en una transición clave hacia IOTA 2.0 (también conocido como Coordicide), eliminando el "Coordinador" centralizado para lograr una red completamente descentralizada, más rápida y segura. Este gráfico compara las mejoras proyectadas.
+            </p>
+            <div class="bg-white rounded-lg shadow-md p-6">
+                 <div class="chart-container">
+                    <canvas id="iotaEvolutionChart"></canvas>
+                </div>
+                <p class="text-center text-sm text-gray-500 mt-4">Comparativa de métricas clave entre la red actual (IOTA 1.5) y la futura red descentralizada (IOTA 2.0).</p>
+            </div>
+        </section>
+
+        <section id="ecosystem" class="my-16">
+            <h2 class="text-3xl font-bold text-center text-[#005f73] mb-8">Un Ecosistema en Plena Expansión</h2>
+            <p class="max-w-4xl mx-auto text-center text-lg text-gray-700 mb-8">
+                IOTA ha expandido su visión con redes complementarias que aportan nuevas funcionalidades. Shimmer actúa como una red de pruebas incentivada para innovaciones, mientras que Assembly se enfoca en habilitar contratos inteligentes escalables y componibles.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-2xl font-bold text-center text-[#0a9396] mb-4">Distribución Funcional del Ecosistema</h3>
+                    <div class="chart-container h-80">
+                        <canvas id="ecosystemDonutChart"></canvas>
+                    </div>
+                     <p class="text-center text-sm text-gray-500 mt-4">Cada red cumple un rol específico, desde la capa base de transacciones hasta la innovación y los contratos inteligentes.</p>
+                </div>
+                <div class="bg-white rounded-lg shadow-md p-6 flex flex-col justify-center">
+                    <div class="space-y-6">
+                        <div>
+                            <h4 class="text-xl font-bold text-[#005f73]">IOTA (Capa Base)</h4>
+                            <p class="text-gray-600 mt-1">La red principal para transacciones de datos y valor sin comisiones, enfocada en la seguridad y la estabilidad para el IoT.</p>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-bold text-[#ee9b00]">Shimmer (SMR)</h4>
+                            <p class="text-gray-600 mt-1">Red de pruebas incentivada (Staging Network). Permite probar y validar nuevas características (como el staking y los NFTs) antes de su implementación en la red principal de IOTA.</p>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-bold text-[#ca6702]">Assembly (ASMB)</h4>
+                            <p class="text-gray-600 mt-1">Una red multicadena para contratos inteligentes. Permite a los desarrolladores crear dApps altamente escalables con total componibilidad y tarifas de ejecución personalizables.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="use-cases" class="my-16">
+            <h2 class="text-3xl font-bold text-center text-[#005f73] mb-8">Casos de Uso en el Mundo Real</h2>
+            <p class="max-w-4xl mx-auto text-center text-lg text-gray-700 mb-8">
+                La tecnología de IOTA está siendo desarrollada y probada en colaboración con socios líderes en diversas industrias, demostrando su potencial para transformar procesos y crear nuevos modelos de negocio.
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="kpi-card">
+                    <span class="text-5xl">🚗</span>
+                    <h3 class="text-xl font-bold mt-4 text-[#005f73]">Automoción</h3>
+                    <p class="mt-2 text-gray-600">Habilitando la identidad digital de vehículos, pagos autónomos en estaciones de carga y seguros basados en el uso.</p>
+                </div>
+                <div class="kpi-card">
+                    <span class="text-5xl">🏙️</span>
+                    <h3 class="text-xl font-bold mt-4 text-[#005f73]">Ciudades Inteligentes</h3>
+                    <p class="mt-2 text-gray-600">Gestión de la identidad digital de los ciudadanos, optimización de la red energética y gestión de residuos.</p>
+                </div>
+                <div class="kpi-card">
+                    <span class="text-5xl">🌐</span>
+                    <h3 class="text-xl font-bold mt-4 text-[#005f73]">Comercio Global</h3>
+                    <p class="mt-2 text-gray-600">Mejora de la transparencia y eficiencia en la cadena de suministro, automatizando el seguimiento y la documentación.</p>
+                </div>
+                <div class="kpi-card">
+                    <span class="text-5xl">🆔</span>
+                    <h3 class="text-xl font-bold mt-4 text-[#005f73]">Identidad Digital</h3>
+                    <p class="mt-2 text-gray-600">Creando sistemas de identidad auto-soberana donde los usuarios tienen el control total sobre sus datos personales.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    
+    <footer class="bg-[#005f73] text-white text-center p-4 mt-8">
+        <p>Informe generado dinámicamente. Datos técnicos con fines ilustrativos.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            
+            const wrapLabel = (label) => {
+                if (label.length <= 16) {
+                    return label;
+                }
+                const words = label.split(' ');
+                const lines = [];
+                let currentLine = '';
+                words.forEach(word => {
+                    if ((currentLine + ' ' + word).trim().length > 16) {
+                        lines.push(currentLine.trim());
+                        currentLine = word;
+                    } else {
+                        currentLine = (currentLine + ' ' + word).trim();
+                    }
+                });
+                if (currentLine) {
+                    lines.push(currentLine.trim());
+                }
+                return lines;
+            };
+
+            const tooltipTitleCallback = function(tooltipItems) {
+                const item = tooltipItems[0];
+                let label = item.chart.data.labels[item.dataIndex];
+                if (Array.isArray(label)) {
+                  return label.join(' ');
+                } else {
+                  return label;
+                }
+            };
+            
+            const palette = {
+                blue: '#0a9396',
+                lightBlue: '#94d2bd',
+                yellow: '#e9d8a6',
+                orange: '#ee9b00',
+                darkOrange: '#ca6702',
+                red: '#bb3e03'
+            };
+
+            const iotaEvolutionCtx = document.getElementById('iotaEvolutionChart').getContext('2d');
+            const iotaEvolutionLabels = ['Transacciones por Segundo (TPS)', 'Tiempo de Confirmación (Segundos)', 'Descentralización (Índice)', 'Consumo Energético (vs. BTC)'];
+            new Chart(iotaEvolutionCtx, {
+                type: 'bar',
+                data: {
+                    labels: iotaEvolutionLabels.map(wrapLabel),
+                    datasets: [{
+                        label: 'IOTA 1.5 (Actual)',
+                        data: [1000, 10, 50, 0.000001],
+                        backgroundColor: palette.blue,
+                        borderColor: palette.blue,
+                        borderWidth: 1
+                    }, {
+                        label: 'IOTA 2.0 (Proyectado)',
+                        data: [2500, 3, 100, 0.000001],
+                        backgroundColor: palette.orange,
+                        borderColor: palette.orange,
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'y',
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value, index, values) {
+                                    if (iotaEvolutionLabels[index] === 'Consumo Energético (vs. BTC)') return value + '%';
+                                    if (iotaEvolutionLabels[index] === 'Descentralización (Índice)') return value;
+                                    return value;
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: { position: 'top' },
+                        tooltip: { callbacks: { title: tooltipTitleCallback } }
+                    }
+                }
+            });
+
+            const ecosystemDonutCtx = document.getElementById('ecosystemDonutChart').getContext('2d');
+            new Chart(ecosystemDonutCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Capa Base (IOTA)', 'Innovación y Staging (Shimmer)', 'Contratos Inteligentes (Assembly)'],
+                    datasets: [{
+                        data: [50, 25, 25],
+                        backgroundColor: [palette.blue, palette.orange, palette.darkOrange],
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom' },
+                        tooltip: { callbacks: { title: tooltipTitleCallback } }
+                    }
+                }
+            });
+
+            const tangleContainer = document.getElementById('tangle-viz');
+            const nodes = [
+                { id: 1, x: 10, y: 50, type: 'old' }, { id: 2, x: 10, y: 20, type: 'old' },
+                { id: 3, x: 30, y: 35, type: 'old', validates: [1, 2] },
+                { id: 4, x: 30, y: 65, type: 'old', validates: [1] },
+                { id: 5, x: 50, y: 50, type: 'old', validates: [3, 4] },
+                { id: 6, x: 50, y: 20, type: 'old', validates: [3] },
+                { id: 7, x: 75, y: 35, type: 'new', validates: [5, 6] }
+            ];
+
+            const nodeMap = new Map(nodes.map(n => [n.id, n]));
+
+            nodes.forEach(node => {
+                const nodeEl = document.createElement('div');
+                nodeEl.className = 'tangle-node';
+                nodeEl.style.position = 'absolute';
+                nodeEl.style.left = `${node.x}%`;
+                nodeEl.style.top = `${node.y}%`;
+                nodeEl.style.transform = 'translate(-50%, -50%)';
+                nodeEl.style.backgroundColor = node.type === 'new' ? palette.orange : palette.blue;
+                nodeEl.textContent = `TX ${node.id}`;
+                tangleContainer.appendChild(nodeEl);
+
+                if (node.validates) {
+                    node.validates.forEach(validatedId => {
+                        const validatedNode = nodeMap.get(validatedId);
+                        if (validatedNode) {
+                            const line = document.createElement('div');
+                            line.className = 'tangle-line';
+
+                            const x1 = validatedNode.x;
+                            const y1 = validatedNode.y;
+                            const x2 = node.x;
+                            const y2 = node.y;
+                            
+                            const containerWidth = tangleContainer.clientWidth;
+                            const containerHeight = tangleContainer.clientHeight;
+                            
+                            const p1x = (x1 / 100) * containerWidth;
+                            const p1y = (y1 / 100) * containerHeight;
+                            const p2x = (x2 / 100) * containerWidth;
+                            const p2y = (y2 / 100) * containerHeight;
+                            
+                            const length = Math.sqrt(Math.pow(p2x - p1x, 2) + Math.pow(p2y - p1y, 2));
+                            const angle = Math.atan2(p2y - p1y, p2x - p1x) * (180 / Math.PI);
+
+                            line.style.width = `${length}px`;
+                            line.style.left = `${p1x}px`;
+                            line.style.top = `${p1y}px`;
+                            line.style.transform = `rotate(${angle}deg)`;
+                            
+                            tangleContainer.insertBefore(line, tangleContainer.firstChild);
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
